@@ -22,10 +22,10 @@ module.exports = {
     'import/parsers': { '@typescript-eslint/parser': ['.ts', '.tsx'] },
   },
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+    // 'react-refresh/only-export-components': [
+    //   'warn',
+    //   { allowConstantExport: true },
+    // ],
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/extensions': [

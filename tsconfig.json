@@ -30,6 +30,7 @@
       "@apis/*": ["apis/*"],
       "@stores/*": ["stores/*"],
       "@interfaces/*": ["interfaces/*"],
+      "@router/*": ["router/*"],
     },
   },
   "include": ["src"],
