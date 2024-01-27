@@ -27,6 +27,7 @@ const getProductInfos = async () => {
     await page.waitForNavigation();
 
     // 현재 페이지 location가져오면 페이지 번호 알 수 있음
+    const lastPage = page.url().split('?')[1].split('&')[0].split('=')[1];
 
     // 그 수만큼 반복하면 될듯?
 
