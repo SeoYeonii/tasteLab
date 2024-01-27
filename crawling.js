@@ -2,6 +2,8 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
 // eslint-disable-next-line import/no-import-module-exports
+import fs from 'fs';
+
 import puppeteer from 'puppeteer';
 
 const getProductInfosFromCurPage = async (page, curPage) => {
@@ -74,6 +76,7 @@ const getProductInfos = async () => {
   }
 };
 
-getProductInfos();
+const productInfos = await getProductInfos();
 
 // json 형태로 저장
+fs.writeFileSync('./productInfos.json', JSON.stringify(productInfos));
