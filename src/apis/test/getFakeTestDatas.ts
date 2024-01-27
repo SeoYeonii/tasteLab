@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useQuery, UseQueryResult } from '@tanstack/react-query';
+import {
+  useSuspenseQuery,
+  UseSuspenseQueryResult,
+} from '@tanstack/react-query';
 
 import makeFakeTestDatas, { FakeData } from '@/mocks/makeFakeTestDatas';
 
@@ -25,11 +28,10 @@ const getFakeTestDatas = async ({
 const useGetFakeTestDatas = ({
   num,
   awaitTime,
-}: Props): UseQueryResult<FakeData[]> =>
-  useQuery({
+}: Props): UseSuspenseQueryResult<FakeData[]> =>
+  useSuspenseQuery({
     queryKey: [TEST_API_KEY.FAKE, { num, awaitTime }],
     queryFn: () => getFakeTestDatas({ num, awaitTime }),
-    suspense: true,
   });
 
 export default useGetFakeTestDatas;
