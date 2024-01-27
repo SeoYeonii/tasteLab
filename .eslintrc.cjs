@@ -26,6 +26,8 @@ module.exports = {
     //   'warn',
     //   { allowConstantExport: true },
     // ],
+    'implicit-arrow-linebreak': 'off',
+    'function-paren-newline': 'off',
     'import/no-unresolved': 'off',
     'import/no-extraneous-dependencies': 'off',
     'import/extensions': [

@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { ReactElement, Suspense } from 'react';
 
 import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import useStore from '@/stores';
 
 import Counter from './Counter';
+import FakeDatas, { Fallback } from './FakeDatas';
 
 const StyledDiv = styled.div`
   width: 100%;
@@ -52,6 +53,12 @@ const Test = (): ReactElement => {
           <div className="title">This is Counter Component</div>
           <Counter />
         </section>
+      </section>
+      <section id={'rq-container'}>
+        <div className="title">React-Query test</div>
+        <Suspense fallback={<Fallback />}>
+          <FakeDatas />
+        </Suspense>
       </section>
     </StyledDiv>
   );
