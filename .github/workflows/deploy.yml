@@ -1,0 +1,17 @@
+name: Deploy to Vercel
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Deploy
+        run: curl -X POST -H "Content-Type: application/json" -d '{}' https://api.vercel.com/v1/integrations/deploy/prj_OUZVJJmp55FnCeF8RlBW6blnwJIX/LpJgC8jLFc
