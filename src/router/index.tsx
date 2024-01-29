@@ -1,12 +1,12 @@
 import { ErrorBoundary } from 'react-error-boundary';
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 
 import ErrorFallbackComponent from '@components/ErrorFallback';
+import Home from '@pages/Home';
 import Test from '@pages/Test';
 
-import AppRoutes from './AppRoutes';
 import PATH from './PATH';
 
 const ErrorBoundaryLayor = () => (
@@ -16,7 +16,7 @@ const ErrorBoundaryLayor = () => (
         onReset={reset}
         fallbackRender={({ error }) => <ErrorFallbackComponent error={error} />}
       >
-        <AppRoutes />
+        <Outlet />
       </ErrorBoundary>
     )}
   </QueryErrorResetBoundary>
@@ -31,7 +31,7 @@ const router = createBrowserRouter(
         {
           path: '',
           index: true,
-          element: <div>Home</div>,
+          element: <Home />,
         },
         {
           path: PATH.TEST,
