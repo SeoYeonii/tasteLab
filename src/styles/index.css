@@ -1,3 +1,20 @@
+#root {
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+}
+@media (min-width: 370px) and (min-height: 810px) {
+  #root {
+    overflow: hidden;
+    width: 360px !important;
+    height: 800px !important;
+    box-shadow:
+      0 0 10px 5px #555,
+      0 0 20px 10px #555;
+    transition: box-shadow 0.3s ease-in-out;
+  }
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -23,9 +40,13 @@ a:hover {
 }
 
 body {
+  background-color: #000000; /* 추후 수정 필요 */
   margin: 0;
   display: flex;
   place-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
   min-width: 320px;
   min-height: 100vh;
 }
