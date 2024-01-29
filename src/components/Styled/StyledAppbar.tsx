@@ -13,13 +13,6 @@ const StyledAppbar = styled.section`
   }
 
   .right {
-    svg {
-      border-radius: 50%;
-      &:hover {
-        cursor: pointer;
-        box-shadow: 0 0 10px var(--yellow50);
-      }
-    }
   }
 `;
 
