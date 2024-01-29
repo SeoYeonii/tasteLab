@@ -4,6 +4,7 @@ import { createBrowserRouter, Outlet } from 'react-router-dom';
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 
 import ErrorFallbackComponent from '@components/ErrorFallback';
+import Content from '@pages/Content';
 import Home from '@pages/Home';
 import Login from '@pages/Login';
 import Test from '@pages/Test';
@@ -34,6 +35,7 @@ const router = createBrowserRouter(
           index: true,
           element: <Home />,
         },
+        { path: PATH.CONTENT, element: <Content /> },
         { path: PATH.LOGIN, element: <Login /> },
         {
           path: PATH.TEST,
