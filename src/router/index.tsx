@@ -3,10 +3,10 @@ import { createBrowserRouter, Outlet } from 'react-router-dom';
 
 import { QueryErrorResetBoundary } from '@tanstack/react-query';
 
+import Profile from '@/pages/Profile';
 import ErrorFallbackComponent from '@components/ErrorFallback';
 import Content from '@pages/Content';
 import Home from '@pages/Home';
-import Profile from '@pages/Home/Profile';
 import Login from '@pages/Login';
 import Test from '@pages/Test';
 
