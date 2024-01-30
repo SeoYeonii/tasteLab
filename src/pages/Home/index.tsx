@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { PersonIcon } from '@/assets/index';
 import NavTitle from '@/components/NavTitle';
+import PATH from '@/router/PATH';
 import StyledAppbar from '@components/Styled/StyledAppbar';
 
 import GuideCarousel, {
@@ -19,7 +20,10 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleClickLogin = useCallback(() => {
-    navigate('/login');
+    const loginInfo = localStorage.getItem('loginInfo');
+    if (loginInfo) {
+      navigate(`/${PATH.PROFILE}`);
+    } else navigate(`/${PATH.LOGIN}`);
   }, [navigate]);
 
   const handleClickList = useCallback(() => {

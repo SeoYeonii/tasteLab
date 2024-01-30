@@ -6,6 +6,7 @@ import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import ErrorFallbackComponent from '@components/ErrorFallback';
 import Content from '@pages/Content';
 import Home from '@pages/Home';
+import Profile from '@pages/Home/Profile';
 import Login from '@pages/Login';
 import Test from '@pages/Test';
 
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
         },
         { path: PATH.CONTENT, element: <Content /> },
         { path: PATH.LOGIN, element: <Login /> },
+        { path: PATH.PROFILE, element: <Profile /> },
         {
           path: PATH.TEST,
           element: <Test />,
