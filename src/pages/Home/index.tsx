@@ -20,8 +20,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleClickLogin = useCallback(() => {
-    const loginInfo = localStorage.getItem('loginInfo');
-
+    const loginInfo = localStorage.getItem('kakaoLoginInfo');
     if (loginInfo !== null) {
       navigate(PATH.PROFILE);
     } else navigate(PATH.LOGIN);
