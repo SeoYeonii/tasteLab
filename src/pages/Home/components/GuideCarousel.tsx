@@ -41,6 +41,7 @@ export const Fallback = () => (
         infiniteLoop
         stopOnHover
         interval={5000}
+        showThumbs={false}
       >
         {new Array(5).fill(0).map((_, i) => (
           <CarouselItem key={i} isLoading={true} />
@@ -66,6 +67,7 @@ const GuideCarousel = () => {
           infiniteLoop
           stopOnHover
           interval={5000}
+          showThumbs={false}
         >
           {data.map((comboItem) => (
             <CarouselItem

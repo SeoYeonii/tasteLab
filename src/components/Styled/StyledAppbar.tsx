@@ -9,10 +9,9 @@ const StyledAppbar = styled.section`
   padding: 0 20px;
   border-bottom: 1px solid #f6f6f6;
 
-  .left {
-  }
-
-  .right {
+  .center {
+    width: 100%;
+    text-align: center;
   }
 `;
 
