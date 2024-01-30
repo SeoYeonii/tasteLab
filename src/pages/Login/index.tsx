@@ -101,6 +101,7 @@ const Login = () => {
 
           /** @TODO 서버와 통신 해야함 일단 로컬에만 저장 */
           localStorage.setItem('kakaoLoginInfo', JSON.stringify(response));
+          localStorage.setItem('kakaoLoginId', JSON.stringify(response.id));
           navigate('/');
         } catch (err) {
           console.log(err);

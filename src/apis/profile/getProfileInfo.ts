@@ -9,7 +9,7 @@ import { ProfileInfo } from '@/interfaces/profile';
 import PROFILE_API_KEY from './consts';
 
 interface Props {
-  id: string;
+  id: number;
 }
 
 const getProfileInfo = async ({ id }: Props): Promise<ProfileInfo> => {
@@ -20,9 +20,9 @@ const getProfileInfo = async ({ id }: Props): Promise<ProfileInfo> => {
 
   const response = {
     userId: id,
-    nickname: loginInfo.profile.nickname,
-    email: loginInfo.kakao_account.email,
-    profileImageUrl: loginInfo.profile.thumbnail_image_url,
+    nickname: loginInfo?.profile?.nickname,
+    email: loginInfo?.kakao_account?.email,
+    profileImageUrl: loginInfo?.profile?.thumbnail_image_url,
   };
 
   return new Promise((res) => {
