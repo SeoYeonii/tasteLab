@@ -21,9 +21,10 @@ const Home = () => {
 
   const handleClickLogin = useCallback(() => {
     const loginInfo = localStorage.getItem('loginInfo');
-    if (loginInfo) {
-      navigate(`/${PATH.PROFILE}`);
-    } else navigate(`/${PATH.LOGIN}`);
+
+    if (loginInfo !== null) {
+      navigate(PATH.PROFILE);
+    } else navigate(PATH.LOGIN);
   }, [navigate]);
 
   const handleClickList = useCallback(() => {
