@@ -3,13 +3,14 @@ import { useState } from 'react';
 import { styled } from 'styled-components';
 
 import { useGetProfileInfo } from '@/apis';
-import { PersonFilledIcon } from '@/assets';
 import Skeleton from '@/components/Skeleton';
 
 const StyledProfileSection = styled.section`
   width: 100%;
   height: 280px;
-  background: var(--yellow30, #ffd666);
+  background:
+    url('/profile-background.png'),
+    lightgray 50% / cover no-repeat;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +23,8 @@ const StyledProfileSection = styled.section`
     height: 120px;
     border-radius: 50%;
     border: 2px solid #000;
-    background: var(--Gray-White, #fff);
+    background: #fff;
+    overflow: hidden;
 
     /* shadow */
     box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.1);
@@ -31,10 +33,6 @@ const StyledProfileSection = styled.section`
     align-items: center;
     div {
       border-radius: 50%;
-    }
-    svg {
-      width: 5rem;
-      height: 5rem;
     }
   }
 
@@ -72,15 +70,16 @@ const ProfileInfo = () => {
     localKakaoLoginId === null ? 0 : +localKakaoLoginId,
   );
   const { data } = useGetProfileInfo({ id: kakaoLoginId });
-  console.log(data);
 
   return (
     <StyledProfileSection>
       <div className="profile-img-container">
-        {data?.profileImageUrl && (
-          <img src={data?.profileImageUrl} alt="profile" />
-        )}
-        {!data?.profileImageUrl && <PersonFilledIcon />}
+        {
+          <img
+            src={data?.profileImageUrl ?? '/profile-image.png'}
+            alt="profile"
+          />
+        }
       </div>
       <div className="name-container">
         <div className="title01">{data?.nickname ?? ''}</div>
