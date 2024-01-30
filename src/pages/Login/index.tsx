@@ -67,7 +67,6 @@ const Login = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const code = useMemo(() => searchParams.get('code'), [searchParams]);
-  // const {mutate} = usePostForKakaoAccessToken();
 
   useEffect(() => {
     if (code !== null) {
@@ -92,21 +91,23 @@ const Login = () => {
               return access_token;
             });
 
-          const res: KakaoAuthInfo = await axios({
+          const response: KakaoAuthInfo = await axios({
             method: 'GET',
             headers: {
               Authorization: `Bearer ${kakaoAccessToken}`, // 카카오 토큰 api로 얻은 accesstoken 보내기
             },
             url: 'https://kapi.kakao.com/v2/user/me',
-          });
+          }).then((res) => res.data);
 
-          // 그다음 뭔가를 해야겠지...
+          /** @TODO 서버와 통신 해야함 일단 로컬에만 저장 */
+          localStorage.setItem('kakaoLoginInfo', JSON.stringify(response));
+          navigate('/');
         } catch (err) {
           console.log(err);
         }
       })();
     }
-  }, [code]);
+  }, [code, navigate]);
 
   return (
     <StyledDiv>
