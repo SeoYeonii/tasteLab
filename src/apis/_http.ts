@@ -30,6 +30,17 @@ class Http {
       .then((res) => res.data.data);
   }
 
+  async externalGet<Response = unknown>(
+    url: string,
+    conf: AxiosRequestConfig = {},
+  ) {
+    return this.axios
+      .get<Response>(url, {
+        ...conf,
+      })
+      .then((res) => res.data);
+  }
+
   async post<Request = any, Response = unknown>(
     url: string,
     data?: Request,
