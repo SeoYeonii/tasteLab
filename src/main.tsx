@@ -15,7 +15,7 @@ const queryClient = new QueryClient({
       retry: 3,
     },
     mutations: {
-      retry: 3,
+      retry: 0,
     },
   },
 });
