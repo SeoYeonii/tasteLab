@@ -3,10 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import { PersonIcon } from '@/assets/index';
 import NavTitle from '@/components/NavTitle';
-import PATH from '@/router/PATH';
-import StyledAppbar from '@components/Styled/StyledAppbar';
 
 import GuideCarousel, {
   Fallback as GuideCarouselFallback,
@@ -19,26 +16,11 @@ const FindSection = styled.section`
 const Home = () => {
   const navigate = useNavigate();
 
-  const handleClickLogin = useCallback(() => {
-    const loginInfo = localStorage.getItem('kakaoLoginInfo');
-    if (loginInfo !== null) {
-      navigate(PATH.PROFILE);
-    } else navigate(PATH.LOGIN);
-  }, [navigate]);
-
   const handleClickList = useCallback(() => {
     navigate('/list');
   }, [navigate]);
   return (
     <>
-      <StyledAppbar>
-        <div className="left title01">로고</div>
-        <div className="right">
-          <div onClick={handleClickLogin}>
-            <PersonIcon />
-          </div>
-        </div>
-      </StyledAppbar>
       <Suspense fallback={<GuideCarouselFallback />}>
         <GuideCarousel />
       </Suspense>

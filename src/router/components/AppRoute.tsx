@@ -2,14 +2,16 @@ import { Outlet } from 'react-router-dom';
 
 import styled from 'styled-components';
 
+import Appbar from './\bAppbar';
+
 const StyledWrapper = styled.div`
   .content-wrapper {
     overflow-y: auto;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 48px - 64px);
   }
   @media (min-width: 370px) and (min-height: 810px) {
     .content-wrapper {
-      height: calc(800px - 64px);
+      height: calc(800px - 48px - 64px);
     }
   }
 
@@ -27,6 +29,7 @@ const AppRoute = () => {
   console.log('AppRoute');
   return (
     <StyledWrapper>
+      <Appbar />
       <div className="content-wrapper">
         <Outlet />
       </div>
