@@ -2,10 +2,14 @@
 import { useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import axios from 'axios';
 import { styled } from 'styled-components';
 
-import { KakaoAuthInfo } from '@/interfaces/login';
+import {
+  useGetKakaoLoginInfo,
+  usePostKakaoAccessToken,
+  usePostKakaoLoginInfo,
+} from '@/apis';
+import PATH from '@/router/PATH';
 
 const KAKAO_LOGIN_REST_API_KEY = import.meta.env.VITE_KAKAO_LOGIN_REST_API_KEY;
 const KAKAO_LOGIN_REDIRECT_URI = import.meta.env.VITE_KAKAO_LOGIN_REDIRECT_URI;
@@ -34,6 +38,7 @@ const StyledDiv = styled.div`
       box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.25);
     }
     .disabled {
+      pointer-events: none;
       cursor: default;
       img:hover {
         box-shadow: none;
@@ -68,47 +73,48 @@ const Login = () => {
   const [searchParams] = useSearchParams();
   const code = useMemo(() => searchParams.get('code'), [searchParams]);
 
+  const { mutate: accessTokenMutate } = usePostKakaoAccessToken();
+  const { mutate: loginInfoMutate } = useGetKakaoLoginInfo();
+  const { mutate } = usePostKakaoLoginInfo();
+
   useEffect(() => {
     if (code !== null) {
-      (async () => {
-        try {
-          const kakaoAccessToken = await axios({
-            method: 'POST',
-            headers: {
-              'content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-            },
-            url: 'https://kauth.kakao.com/oauth/token',
-            data: {
-              grant_type: 'authorization_code',
-              client_id: KAKAO_LOGIN_REST_API_KEY,
-              redirect_uri: KAKAO_LOGIN_REDIRECT_URI,
-              code,
-            },
-          })
-            .then((res) => res.data)
-            .then((res) => {
-              const { access_token } = res;
-              return access_token;
-            });
-
-          const response: KakaoAuthInfo = await axios({
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${kakaoAccessToken}`, // 카카오 토큰 api로 얻은 accesstoken 보내기
-            },
-            url: 'https://kapi.kakao.com/v2/user/me',
-          }).then((res) => res.data);
-
-          /** @TODO 서버와 통신 해야함 일단 로컬에만 저장 */
-          localStorage.setItem('kakaoLoginInfo', JSON.stringify(response));
-          localStorage.setItem('kakaoLoginId', JSON.stringify(response.id));
-          navigate('/');
-        } catch (err) {
-          console.log(err);
-        }
-      })();
+      accessTokenMutate(
+        { code },
+        {
+          onSuccess: (tokenInfo) => {
+            const { access_token } = tokenInfo;
+            loginInfoMutate(
+              { kakaoAccessToken: access_token },
+              {
+                onSuccess: (loginInfo) => {
+                  mutate(
+                    {
+                      name: loginInfo.kakao_account.profile.nickname,
+                      email: loginInfo.kakao_account.email,
+                      picture:
+                        loginInfo.kakao_account.profile.profile_image_url,
+                    },
+                    {
+                      onSuccess: (res) => {
+                        console.log('client', res);
+                        localStorage.setItem(
+                          'loginToken',
+                          JSON.stringify(res.token),
+                        );
+                        navigate(PATH.HOME);
+                      },
+                    },
+                  );
+                },
+              },
+            );
+          },
+        },
+      );
     }
-  }, [code, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <StyledDiv>
