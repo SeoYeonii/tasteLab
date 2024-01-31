@@ -42,6 +42,18 @@ class Http {
       .then((res) => res.data.data);
   }
 
+  async externalPost<Request = any, Response = unknown>(
+    url: string,
+    data?: Request,
+    conf: AxiosRequestConfig = {},
+  ) {
+    return this.axios
+      .post<Response>(url, data, {
+        ...conf,
+      })
+      .then((res) => res.data);
+  }
+
   async put<Request = any, Response = unknown>(
     url: string,
     data?: Request,
