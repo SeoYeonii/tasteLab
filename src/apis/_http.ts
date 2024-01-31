@@ -13,7 +13,7 @@ class Http {
   /** @description 추가 구성 필요 */
   constructor() {
     this.axios = Axios.create({
-      baseURL: `${import.meta.env.BASE_URL as string}`,
+      baseURL: `${import.meta.env.VITE_BASE_URL as string}`,
       headers: {
         'Content-Type': 'application/json',
         /** @todo authorization 토큰 어떻게 받을 것인지 확인 후 적용 */
@@ -30,6 +30,17 @@ class Http {
       .then((res) => res.data.data);
   }
 
+  async externalGet<Response = unknown>(
+    url: string,
+    conf: AxiosRequestConfig = {},
+  ) {
+    return this.axios
+      .get<Response>(url, {
+        ...conf,
+      })
+      .then((res) => res.data);
+  }
+
   async post<Request = any, Response = unknown>(
     url: string,
     data?: Request,
@@ -40,6 +51,18 @@ class Http {
         ...conf,
       })
       .then((res) => res.data.data);
+  }
+
+  async externalPost<Request = any, Response = unknown>(
+    url: string,
+    data?: Request,
+    conf: AxiosRequestConfig = {},
+  ) {
+    return this.axios
+      .post<Response>(url, data, {
+        ...conf,
+      })
+      .then((res) => res.data);
   }
 
   async put<Request = any, Response = unknown>(

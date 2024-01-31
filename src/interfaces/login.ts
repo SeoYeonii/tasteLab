@@ -17,14 +17,20 @@ export interface KakaoAuthInfo {
     has_email: boolean;
     is_email_valid: boolean;
     is_email_verified: boolean;
+    profile: {
+      is_default_image: boolean;
+      nickname: string;
+      profile_image_url: string;
+      thumbnail_image_url: string;
+    };
+    profile_image_needs_agreement: boolean;
+    profile_nickname_needs_agreement: boolean;
   };
+}
 
-  profile: {
-    is_default_image: boolean;
-    nickname: string;
-    profile_image_url: string;
-    thumbnail_image_url: string;
-  };
-  profile_image_needs_agreement: boolean;
-  profile_nickname_needs_agreement: boolean;
+export interface LoginPostResponse {
+  name: string;
+  email: string;
+  picture: string;
+  token: string;
 }
