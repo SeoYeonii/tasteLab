@@ -11,3 +11,12 @@ export interface ComboItem {
   product1: Product;
   product2: Product;
 }
+
+export interface ListItem {
+  id: string;
+  imgUrl: string;
+  rank: number;
+  name: string;
+  tags: string[];
+  likeNum: number;
+}

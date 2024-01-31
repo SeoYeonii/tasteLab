@@ -1,5 +1,6 @@
 /** Home */
 export { default as useGetComboItems } from '@apis/home/getComboItems';
+export { default as useGetListItems } from '@apis/home/getListItems';
 
 /** Login */
 export { default as usePostKakaoAccessToken } from '@apis/login/postKakaoAccessToken';
