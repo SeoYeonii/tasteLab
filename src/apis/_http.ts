@@ -13,7 +13,7 @@ class Http {
   /** @description 추가 구성 필요 */
   constructor() {
     this.axios = Axios.create({
-      baseURL: `${import.meta.env.BASE_URL as string}`,
+      baseURL: `${import.meta.env.VITE_BASE_URL as string}`,
       headers: {
         'Content-Type': 'application/json',
         /** @todo authorization 토큰 어떻게 받을 것인지 확인 후 적용 */
