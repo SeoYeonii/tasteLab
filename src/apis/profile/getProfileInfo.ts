@@ -3,7 +3,6 @@ import {
   UseSuspenseQueryResult,
 } from '@tanstack/react-query';
 
-import { KakaoAuthInfo } from '@/interfaces/login';
 import { ProfileInfo } from '@/interfaces/profile';
 
 import PROFILE_API_KEY from './consts';
@@ -14,15 +13,12 @@ interface Props {
 
 const getProfileInfo = async ({ id }: Props): Promise<ProfileInfo> => {
   /** @TODO 실제 api 연동 필요 */
-  const loginInfo: KakaoAuthInfo = JSON.parse(
-    localStorage.getItem('kakaoLoginInfo') ?? '',
-  );
 
   const response = {
     userId: id,
-    nickname: loginInfo?.profile?.nickname,
-    email: loginInfo?.kakao_account?.email,
-    profileImageUrl: loginInfo?.profile?.thumbnail_image_url,
+    nickname: '임시 static nickname',
+    email: '임시 static email',
+    profileImageUrl: '',
   };
 
   return new Promise((res) => {
