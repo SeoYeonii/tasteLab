@@ -19,6 +19,8 @@ import HomeIcon from './home.svg';
 import HomeFilledIcon from './homeOutlined.svg';
 import InfoFilledIcon from './infoFilled.svg';
 import IngredientIcon from './ingredient.svg';
+import ListIcon from './list.svg';
+import ListFilledIcon from './listFilled.svg';
 import LocationIcon from './location.svg';
 import MapIcon from './map.svg';
 import MapFilledIcon from './mapFilled.svg';
@@ -74,4 +76,6 @@ export {
   CommentIcon,
   MoneyIcon,
   IngredientIcon,
+  ListIcon,
+  ListFilledIcon,
 };
