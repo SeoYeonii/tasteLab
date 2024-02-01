@@ -1,9 +1,12 @@
+import { useCallback } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import { useNavigate } from 'react-router-dom';
 
 import { styled } from 'styled-components';
 
 import { useGetComboItems } from '@/apis';
+import PATH from '@/router/PATH';
 
 import CarouselItem from './CarouselItem';
 
@@ -52,7 +55,12 @@ export const Fallback = () => (
 );
 
 const GuideCarousel = () => {
+  const navigate = useNavigate();
   const { data, isLoading } = useGetComboItems();
+  const handleClickItem = useCallback(
+    (id: string) => navigate(PATH.CONTENT, { state: { id } }),
+    [navigate],
+  );
 
   return (
     <GuideSection>
@@ -74,6 +82,7 @@ const GuideCarousel = () => {
               key={comboItem.id}
               isLoading={isLoading}
               comboItem={comboItem}
+              onClick={handleClickItem}
             />
           ))}
         </Carousel>

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 
 import { AddIcon } from '@/assets';
@@ -79,10 +80,15 @@ const StyledCard = styled.div`
 interface Props {
   comboItem?: ComboItem;
   isLoading?: boolean;
+  onClick?: (id: string) => void;
 }
 
-const CarouselItem = ({ comboItem = undefined, isLoading = false }: Props) => (
-  <StyledCard>
+const CarouselItem = ({
+  comboItem = undefined,
+  isLoading = false,
+  onClick = undefined,
+}: Props) => (
+  <StyledCard onClick={() => onClick?.(comboItem?.id ?? '')}>
     <div className="title-container">
       {isLoading && <Skeleton height="1rem" />}
       {!isLoading && (
