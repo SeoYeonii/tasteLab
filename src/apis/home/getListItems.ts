@@ -13,7 +13,7 @@ const getListItems = async (): Promise<ListItem[]> => {
   const response = makeFakeListItems();
 
   return new Promise((res) => {
-    setTimeout(() => res(response), 300000);
+    setTimeout(() => res(response), 2000);
     // setTimeout(() => rej('testing error boundary'), awaitTime);
   });
 };
