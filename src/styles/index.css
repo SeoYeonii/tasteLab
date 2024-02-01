@@ -110,13 +110,13 @@ body {
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
-  line-height: 22px; /* 122.222% */
+  line-height: 30px; /* 166.667% */
 }
 .title02 {
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 20px; /* 125% */
+  line-height: 24px; /* 150% */
 }
 .title03 {
   font-size: 14px;
