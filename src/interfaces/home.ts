@@ -1,8 +1,4 @@
-interface Product {
-  id: string;
-  name: string;
-  imgUrl: string;
-}
+import { Product } from './common';
 
 export interface ComboItem {
   id: string;
@@ -19,4 +15,13 @@ export interface ListItem {
   name: string;
   tags: string[];
   likeNum: number;
+}
+
+export interface RecommendItem {
+  id: string;
+  ment: string;
+  foods: Product[];
+  drinks: Product[];
+  foodsName: string;
+  drinksName: string;
 }
