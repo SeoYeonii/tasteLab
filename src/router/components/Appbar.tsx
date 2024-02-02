@@ -86,7 +86,11 @@ const Appbar = () => {
     }
   }, [handleClickGoBack, pathname]);
 
-  return <StyledAppbar>{Content}</StyledAppbar>;
+  return (
+    <StyledAppbar style={{ display: pathname === PATH.LOGIN ? 'none' : '' }}>
+      {Content}
+    </StyledAppbar>
+  );
 };
 
 export default Appbar;

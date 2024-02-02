@@ -27,10 +27,3 @@ export interface KakaoAuthInfo {
     profile_nickname_needs_agreement: boolean;
   };
 }
-
-export interface LoginPostResponse {
-  name: string;
-  email: string;
-  picture: string;
-  token: string;
-}

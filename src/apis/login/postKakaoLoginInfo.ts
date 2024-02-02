@@ -1,7 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { LoginPostResponse } from '@/interfaces/login';
-
 import { _http } from '../_http';
 
 interface Props {
@@ -14,8 +12,8 @@ const postKakaoLoginInfo = async ({
   name,
   email,
   picture,
-}: Props): Promise<LoginPostResponse> => {
-  const response: LoginPostResponse = await _http.post('/login', {
+}: Props): Promise<string> => {
+  const response: string = await _http.post('/user/login', {
     name,
     email,
     picture,

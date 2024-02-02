@@ -60,7 +60,7 @@ const Footer = () => {
     [navigate],
   );
   return (
-    <StyledFooter>
+    <StyledFooter style={{ display: pathname === PATH.LOGIN ? 'none' : '' }}>
       <IconItem
         selected={pathname === PATH.HOME}
         Icon={HomeIcon as ElementType}
