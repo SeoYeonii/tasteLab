@@ -13,7 +13,7 @@ const StyledCard = styled.div`
   border-radius: 16px;
   border: 2px solid #000;
   background: var(--Yellow-40, #ffc933);
-  box-shadow: 0px 3px 15px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 4px 4px 0px 0px #000;
   margin: 0 6px;
   gap: 13px;
 
@@ -78,58 +78,50 @@ const StyledCard = styled.div`
 `;
 
 interface Props {
-  comboItem?: ComboItem;
+  item?: ComboItem;
   isLoading?: boolean;
   onClick?: (id: string) => void;
 }
 
 const CarouselItem = ({
-  comboItem = undefined,
+  item = undefined,
   isLoading = false,
   onClick = undefined,
 }: Props) => (
-  <StyledCard onClick={() => onClick?.(comboItem?.id ?? '')}>
+  <StyledCard onClick={() => onClick?.(item?.id ?? '')}>
     <div className="title-container">
       {isLoading && <Skeleton height="1rem" />}
-      {!isLoading && (
-        <div className="title title01">{comboItem?.name ?? ''}</div>
-      )}
+      {!isLoading && <div className="title title01">{item?.name ?? ''}</div>}
       {isLoading && <Skeleton height="1rem" />}
       {!isLoading && (
-        <div className="description title04">{comboItem?.description}</div>
+        <div className="description title04">{item?.description}</div>
       )}
     </div>
     <div className="content-container">
       <div className="img-container">
         <div className="img">
           {!isLoading && (
-            <img
-              src={comboItem?.product1.imgUrl}
-              alt={comboItem?.product1.name}
-            />
+            <img src={item?.product1.imgUrl} alt={item?.product1.name} />
           )}
           {isLoading && <Skeleton height="80px" width="80px" />}
         </div>
         <div className="img">
           {!isLoading && (
-            <img
-              src={comboItem?.product2.imgUrl}
-              alt={comboItem?.product2.name}
-            />
+            <img src={item?.product2.imgUrl} alt={item?.product2.name} />
           )}
           {isLoading && <Skeleton height="80px" width="80px" />}
         </div>
       </div>
       <div className="text-container">
         {!isLoading && (
-          <div className="text title04">{comboItem?.product1.name}</div>
+          <div className="text title04">{item?.product1.name}</div>
         )}
         {isLoading && <Skeleton height="1rem" width="5rem" />}
         <div>
           <AddIcon />
         </div>
         {!isLoading && (
-          <div className="text title04">{comboItem?.product2.name}</div>
+          <div className="text title04">{item?.product2.name}</div>
         )}
         {isLoading && <Skeleton height="1rem" width="5rem" />}
       </div>

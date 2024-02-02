@@ -3,12 +3,29 @@ import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import GuideCarousel, {
-  Fallback as GuideCarouselFallback,
-} from './components/GuideCarousel';
+import { useGetComboItems, useGetRecommendItems } from '@/apis';
+import PATH from '@/router/PATH';
+
+import CarouselItem from './components/CarouselItem';
+import RecommendCarouselItem from './components/RecommendCarouselItem';
+import TLCarousel, {
+  Fallback as TLCarouselFallback,
+} from './components/TLCarousel';
 import TopList, { Fallback as ListItemFallback } from './components/TopList';
 
-const FindSection = styled.section`
+const GuideSection = styled.section`
+  width: 100%;
+  height: 468px;
+  background:
+    url('/home-guide-background.png'),
+    lightgray 50% / cover no-repeat;
+
+  .guide-title {
+    padding: 40px 0 36px 0;
+    text-align: center;
+  }
+`;
+const StyledSection = styled.section`
   .list-title {
     margin: 40px 0 20px 0;
     padding: 8px 20px;
@@ -19,7 +36,7 @@ const FindSection = styled.section`
     line-height: 24px; /* 120% */
   }
   .list-container {
-    margin: 20px;
+    margin: 20px 20px 40px 20px;
     display: flex;
     padding: 24px 20px;
     flex-direction: column;
@@ -27,6 +44,7 @@ const FindSection = styled.section`
     border-radius: 20px;
     border: 2px solid var(--Gray-90, #1c1c1c);
     background: var(--Yellow-05, #fff4d6);
+    box-shadow: 4px 4px 0px 0px #1c1c1c;
 
     button {
       display: flex;
@@ -52,15 +70,28 @@ const FindSection = styled.section`
 const Home = () => {
   const navigate = useNavigate();
 
+  const handleClickComboItem = useCallback(
+    (id: string) => navigate(PATH.CONTENT, { state: { id } }),
+    [navigate],
+  );
+
   const handleClickList = useCallback(() => {
     navigate('/list');
   }, [navigate]);
+
   return (
     <>
-      <Suspense fallback={<GuideCarouselFallback />}>
-        <GuideCarousel />
-      </Suspense>
-      <FindSection>
+      <GuideSection>
+        <div className="guide-title headline02">맛렙 PICK 편의점 꿀조합템</div>
+        <Suspense fallback={<TLCarouselFallback Item={CarouselItem} />}>
+          <TLCarousel
+            queryFn={useGetComboItems}
+            Item={CarouselItem}
+            onClick={handleClickComboItem}
+          />
+        </Suspense>
+      </GuideSection>
+      <StyledSection>
         <div className="list-title">꿀조합 인기 아이템 TOP 3위</div>
         <div className="list-container">
           <Suspense fallback={<ListItemFallback />}>
@@ -70,7 +101,27 @@ const Home = () => {
             더 보러가기
           </button>
         </div>
-      </FindSection>
+      </StyledSection>
+      <StyledSection>
+        <div className="list-title">TBD</div>
+        <Suspense
+          fallback={
+            <TLCarouselFallback
+              Item={RecommendCarouselItem}
+              showIndicators={false}
+              centerSlidePercentage={90}
+            />
+          }
+        >
+          <TLCarousel
+            queryFn={useGetRecommendItems}
+            Item={RecommendCarouselItem}
+            onClick={handleClickComboItem}
+            showIndicators={false}
+            centerSlidePercentage={90}
+          />
+        </Suspense>
+      </StyledSection>
     </>
   );
 };
