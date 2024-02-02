@@ -1,10 +1,13 @@
-import { useParams } from 'react-router-dom';
+import { Suspense } from 'react';
+// import { useParams } from 'react-router-dom';
 
 import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 
 import { IngredientIcon, MoneyIcon } from '@/assets';
 import useStore from '@/stores';
+
+import Recipe, { Fallback as RecipeFallback } from './components/Recipe';
 
 const StyledSection = styled.section`
   width: 100%;
@@ -55,8 +58,20 @@ const StyledSection = styled.section`
   }
 `;
 
+const StyledBottomSection = styled.section`
+  display: flex;
+  padding: 24px 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  .title {
+    padding: 8px 0px;
+  }
+`;
+
 const Content = () => {
-  const { comboItemId } = useParams();
+  //   const { comboItemId: comboItemIdParam } = useParams();
+  //   const comboItemId = Number(comboItemIdParam ?? 0);
   const { comboItemStore } = useStore();
 
   return (
@@ -92,7 +107,13 @@ const Content = () => {
           </div>
         </div>
       </StyledSection>
-      {/*  */}
+      <StyledBottomSection>
+        <div className="recipe-title title02">레시피</div>
+        <Suspense fallback={<RecipeFallback />}>
+          {/* <Recipe comboItemId={comboItemId} /> */}
+          <Recipe />
+        </Suspense>
+      </StyledBottomSection>
       {/*  */}
     </>
   );

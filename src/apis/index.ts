@@ -11,4 +11,7 @@ export { default as usePostKakaoLoginInfo } from '@apis/login/postKakaoLoginInfo
 /** Profile */
 export { default as useGetProfileInfo } from './profile/getProfileInfo';
 
+/** Content */
+export { default as useGetRecipes } from '@apis/content/getRecipes';
+
 export { default as useGetFakeTestDatas } from '@apis/test/getFakeTestDatas';
