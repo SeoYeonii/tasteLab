@@ -5,9 +5,14 @@
 }
 
 #root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   background-color: #ffffff;
   width: 100%;
   height: 100%;
+  min-width: 360px;
 }
 @media (min-width: 370px) and (min-height: 810px) {
   #root {
@@ -23,7 +28,7 @@
 
 :root {
   /* colors */
-  --white: #000000;
+  --white: #ffffff;
   --gray05: #f7f7f7;
   --gray10: #e4e4e4;
   --gray20: #d4d3d3;
@@ -98,20 +103,20 @@ body {
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
-  line-height: 24px; /* 120% */
+  line-height: 28px; /* 140% */
 }
 
 .title01 {
   font-size: 18px;
   font-style: normal;
   font-weight: 700;
-  line-height: 22px; /* 122.222% */
+  line-height: 30px; /* 166.667% */
 }
 .title02 {
   font-size: 16px;
   font-style: normal;
   font-weight: 700;
-  line-height: 20px; /* 125% */
+  line-height: 24px; /* 150% */
 }
 .title03 {
   font-size: 14px;
@@ -143,4 +148,10 @@ body {
   font-style: normal;
   font-weight: 500;
   line-height: 16px; /* 133.333% */
+}
+.caption01 {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 14px; /* 140% */
 }

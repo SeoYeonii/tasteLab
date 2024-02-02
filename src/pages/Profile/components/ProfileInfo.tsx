@@ -9,14 +9,13 @@ const StyledProfileSection = styled.section`
   width: 100%;
   height: 280px;
   background:
-    url('/profile-background.png'),
+    url('/home-guide-background.png'),
     lightgray 50% / cover no-repeat;
   display: flex;
+  padding: 40px 0px 32px 0px;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  padding: 40px 0 48px 0;
-  gap: 24px;
+  gap: 20px;
 
   .profile-img-container {
     width: 120px;
