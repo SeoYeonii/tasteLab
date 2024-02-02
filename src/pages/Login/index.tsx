@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { styled } from 'styled-components';
@@ -9,6 +9,7 @@ import {
   usePostKakaoAccessToken,
   usePostKakaoLoginInfo,
 } from '@/apis';
+import { LogoIcon, LogoTitleIcon } from '@/assets';
 import PATH from '@/router/PATH';
 
 const KAKAO_LOGIN_REST_API_KEY = import.meta.env.VITE_KAKAO_LOGIN_REST_API_KEY;
@@ -25,9 +26,30 @@ const StyledDiv = styled.div`
 
   .welcome {
     width: 350px;
-    height: 350px;
+    height: 480px;
     flex-shrink: 0;
-    background: #d9d9d9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+
+    svg {
+      border-radius: 0;
+    }
+    svg:hover {
+      box-shadow: none;
+    }
+    svg:first-child {
+      width: 85.5px;
+      height: 72.5px;
+      flex-shrink: 0;
+    }
+    svg:last-child {
+      width: 76px;
+      height: 34.566px;
+      flex-shrink: 0;
+    }
   }
 
   .button-container {
@@ -80,6 +102,10 @@ const Login = () => {
   const { mutate: loginInfoMutate } = useGetKakaoLoginInfo();
   const { mutate } = usePostKakaoLoginInfo();
 
+  const handleClickLogo = useCallback(() => {
+    navigate(PATH.HOME);
+  }, [navigate]);
+
   useEffect(() => {
     if (loginToken !== null) navigate(PATH.HOME);
   }, [loginToken, navigate]);
@@ -104,7 +130,6 @@ const Login = () => {
                     },
                     {
                       onSuccess: (res) => {
-                        console.log('client', res);
                         localStorage.setItem(
                           'loginToken',
                           JSON.stringify(res.token),
@@ -125,7 +150,10 @@ const Login = () => {
 
   return (
     <StyledDiv>
-      <div className="welcome">로고 or 환영문구</div>
+      <div className="welcome" onClick={handleClickLogo}>
+        <LogoIcon />
+        <LogoTitleIcon />
+      </div>
       <div className="button-container">
         <a
           className={code === null ? '' : 'disabled'}
