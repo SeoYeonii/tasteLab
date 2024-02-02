@@ -84,7 +84,7 @@ const StyledDiv = styled.div`
       animation: spin 1s linear infinite;
       margin: 20px auto;
       position: absolute;
-      top: 68.8%;
+      top: 69.8%;
       left: 48%;
     }
   }
@@ -130,10 +130,7 @@ const Login = () => {
                     },
                     {
                       onSuccess: (res) => {
-                        localStorage.setItem(
-                          'loginToken',
-                          JSON.stringify(res.token),
-                        );
+                        localStorage.setItem('loginToken', JSON.stringify(res));
                         navigate(PATH.HOME);
                       },
                     },
