@@ -34,6 +34,11 @@ const StyledProfileSection = styled.section`
       width: 48px;
       height: 40.552px;
       flex-shrink: 0;
+      border-radius: 0;
+      cursor: default;
+      &:hover {
+        box-shadow: none;
+      }
     }
     img {
       width: 100%;
