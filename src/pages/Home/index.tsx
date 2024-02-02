@@ -71,7 +71,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleClickComboItem = useCallback(
-    (id: string) => navigate(PATH.CONTENT, { state: { id } }),
+    (id: number) => navigate(PATH.CONTENT, { state: { id } }),
     [navigate],
   );
 

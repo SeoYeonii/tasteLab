@@ -1,12 +1,13 @@
 import { Product } from './common';
 
 export interface ProfileInfo {
-  userId: number;
-  nickname: string;
+  name: string;
   email: string;
-  profileImageUrl: string;
+  picture?: string;
 }
 
 export interface SaveItemInfo extends Product {
   categoryName: string;
 }
+
+// export interface

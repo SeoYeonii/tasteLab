@@ -16,8 +16,6 @@ class Http {
       baseURL: `${import.meta.env.VITE_BASE_URL as string}`,
       headers: {
         'Content-Type': 'application/json',
-        /** @todo authorization 토큰 어떻게 받을 것인지 확인 후 적용 */
-        Authorization: '',
       },
     });
   }

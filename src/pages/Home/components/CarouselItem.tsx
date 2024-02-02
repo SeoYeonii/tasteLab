@@ -80,7 +80,7 @@ const StyledCard = styled.div`
 interface Props {
   item?: ComboItem;
   isLoading?: boolean;
-  onClick?: (id: string) => void;
+  onClick?: (id: number) => void;
 }
 
 const CarouselItem = ({
@@ -88,40 +88,44 @@ const CarouselItem = ({
   isLoading = false,
   onClick = undefined,
 }: Props) => (
-  <StyledCard onClick={() => onClick?.(item?.id ?? '')}>
+  <StyledCard onClick={() => onClick?.(item?.comboItemId ?? 0)}>
     <div className="title-container">
       {isLoading && <Skeleton height="1rem" />}
       {!isLoading && <div className="title title01">{item?.name ?? ''}</div>}
       {isLoading && <Skeleton height="1rem" />}
-      {!isLoading && (
-        <div className="description title04">{item?.description}</div>
-      )}
+      {!isLoading && <div className="description title04">{item?.review}</div>}
     </div>
     <div className="content-container">
       <div className="img-container">
         <div className="img">
           {!isLoading && (
-            <img src={item?.product1.imgUrl} alt={item?.product1.name} />
+            <img
+              src={item?.products[0].imageUrl}
+              alt={item?.products[0].name}
+            />
           )}
           {isLoading && <Skeleton height="80px" width="80px" />}
         </div>
         <div className="img">
           {!isLoading && (
-            <img src={item?.product2.imgUrl} alt={item?.product2.name} />
+            <img
+              src={item?.products[1].imageUrl}
+              alt={item?.products[1].name}
+            />
           )}
           {isLoading && <Skeleton height="80px" width="80px" />}
         </div>
       </div>
       <div className="text-container">
         {!isLoading && (
-          <div className="text title04">{item?.product1.name}</div>
+          <div className="text title04">{item?.products[0].name}</div>
         )}
         {isLoading && <Skeleton height="1rem" width="5rem" />}
         <div>
           <AddIcon />
         </div>
         {!isLoading && (
-          <div className="text title04">{item?.product2.name}</div>
+          <div className="text title04">{item?.products[1].name}</div>
         )}
         {isLoading && <Skeleton height="1rem" width="5rem" />}
       </div>

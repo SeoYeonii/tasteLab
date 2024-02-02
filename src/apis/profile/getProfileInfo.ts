@@ -6,32 +6,22 @@ import {
 import { ProfileInfo } from '@/interfaces/profile';
 
 import PROFILE_API_KEY from './consts';
+import { _http } from '../_http';
 
-interface Props {
-  id: number;
-}
-
-const getProfileInfo = async ({ id }: Props): Promise<ProfileInfo> => {
-  /** @TODO 실제 api 연동 필요 */
-
-  const response = {
-    userId: id,
-    nickname: '임시 static nickname',
-    email: '임시 static email',
-    profileImageUrl: '',
-  };
-
-  return new Promise((res) => {
-    setTimeout(() => res(response), 3000);
+const getProfileInfo = async (): Promise<ProfileInfo> => {
+  const response: ProfileInfo = await _http.get('/user/profile', {
+    headers: {
+      Authorization: `Bearer ${JSON.parse(localStorage.getItem('loginToken') ?? '')}`,
+    },
   });
+
+  return response;
 };
 
-const useGetProfileInfo = ({
-  id,
-}: Props): UseSuspenseQueryResult<ProfileInfo> =>
+const useGetProfileInfo = (): UseSuspenseQueryResult<ProfileInfo> =>
   useSuspenseQuery({
     queryKey: [PROFILE_API_KEY.PROFILE],
-    queryFn: () => getProfileInfo({ id }),
+    queryFn: getProfileInfo,
   });
 
 export default useGetProfileInfo;
