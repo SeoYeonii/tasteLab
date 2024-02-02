@@ -28,7 +28,7 @@
 
 :root {
   /* colors */
-  --white: #000000;
+  --white: #ffffff;
   --gray05: #f7f7f7;
   --gray10: #e4e4e4;
   --gray20: #d4d3d3;
@@ -103,7 +103,7 @@ body {
   font-size: 20px;
   font-style: normal;
   font-weight: 700;
-  line-height: 24px; /* 120% */
+  line-height: 28px; /* 140% */
 }
 
 .title01 {
