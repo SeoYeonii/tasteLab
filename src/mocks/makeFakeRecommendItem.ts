@@ -2,38 +2,14 @@ import { faker } from '@faker-js/faker';
 
 import { RecommendItem } from '@/interfaces/home';
 
+import makeFakeProduct from './makeFakeProduct';
+
 const makeFakeRecommendItems = (num: number): RecommendItem[] =>
   new Array(num).fill(0).map(() => ({
-    id: faker.string.uuid(),
+    comboItemId: faker.number.int({ min: 1, max: 10000 }),
     ment: '오늘 하루 부스터를 달아줄 꿀+꿀 더블 조합',
-    foods: [
-      {
-        id: faker.string.uuid(),
-        name: '불닭볶음면',
-        imgUrl:
-          'https://www.ministop.co.kr/MiniStopHomePage/page/pic.do?n=event2plus1.[MFEFCGJS_]2plus1_750.jpg',
-      },
-      {
-        id: faker.string.uuid(),
-        name: '불닭볶음면',
-        imgUrl:
-          'https://www.ministop.co.kr/MiniStopHomePage/page/pic.do?n=event2plus1.[MFEFCGJS_]2plus1_750.jpg',
-      },
-    ],
-    drinks: [
-      {
-        id: faker.string.uuid(),
-        name: '불닭볶음면',
-        imgUrl:
-          'https://www.ministop.co.kr/MiniStopHomePage/page/pic.do?n=event2plus1.[MFEFCGJS_]2plus1_750.jpg',
-      },
-      {
-        id: faker.string.uuid(),
-        name: '불닭볶음면',
-        imgUrl:
-          'https://www.ministop.co.kr/MiniStopHomePage/page/pic.do?n=event2plus1.[MFEFCGJS_]2plus1_750.jpg',
-      },
-    ],
+    foods: [makeFakeProduct(), makeFakeProduct()],
+    drinks: [makeFakeProduct(), makeFakeProduct()],
     foodsName: '마크정식',
     drinksName: '얼박사',
   }));

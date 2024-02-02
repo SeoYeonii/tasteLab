@@ -93,7 +93,7 @@ const StyledCard = styled.div`
 interface Props {
   item?: RecommendItem;
   isLoading?: boolean;
-  onClick?: (id: string) => void;
+  onClick?: (id: number) => void;
 }
 
 const RecommendCarouselItem = ({
@@ -101,7 +101,7 @@ const RecommendCarouselItem = ({
   isLoading = false,
   onClick = undefined,
 }: Props) => (
-  <StyledCard onClick={() => onClick?.(item?.id ?? '')}>
+  <StyledCard onClick={() => onClick?.(item?.comboItemId ?? 0)}>
     <div className="title-container">
       {isLoading && <Skeleton height="1rem" />}
       {!isLoading && <div className="title02">{item?.ment ?? ''}</div>}
@@ -111,7 +111,7 @@ const RecommendCarouselItem = ({
         <div className="img">
           {isLoading && <Skeleton height="100%" width="100%" />}
           {item?.foods.map((food, i) => (
-            <img className={`img${i}`} src={food.imgUrl} alt={food.name} />
+            <img className={`img${i}`} src={food.imageUrl} alt={food.name} />
           ))}
         </div>
         {isLoading && <Skeleton height="18px%" width="3rem" />}
@@ -124,7 +124,7 @@ const RecommendCarouselItem = ({
         <div className="img">
           {isLoading && <Skeleton height="100%" width="100%" />}
           {item?.drinks.map((drink, i) => (
-            <img className={`img${i}`} src={drink.imgUrl} alt={drink.name} />
+            <img className={`img${i}`} src={drink.imageUrl} alt={drink.name} />
           ))}
         </div>
         {isLoading && <Skeleton height="18px%" width="3rem" />}

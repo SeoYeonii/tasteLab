@@ -1,11 +1,16 @@
 import { Product } from './common';
 
-export interface ComboItem {
-  id: string;
-  name: string;
+export interface ComboItemDescription {
+  comboItemId: number;
+  orderNumber: number;
   description: string;
-  product1: Product;
-  product2: Product;
+}
+export interface ComboItem {
+  comboItemId: number;
+  name: string;
+  review: string; // 한 줄 멘트
+  isGoodCount: number;
+  products: Product[];
 }
 
 export interface ListItem {
@@ -18,7 +23,7 @@ export interface ListItem {
 }
 
 export interface RecommendItem {
-  id: string;
+  comboItemId: number;
   ment: string;
   foods: Product[];
   drinks: Product[];

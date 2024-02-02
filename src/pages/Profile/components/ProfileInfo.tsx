@@ -1,8 +1,7 @@
-import { useState } from 'react';
-
 import { styled } from 'styled-components';
 
 import { useGetProfileInfo } from '@/apis';
+import { LogoIcon } from '@/assets';
 import Skeleton from '@/components/Skeleton';
 
 const StyledProfileSection = styled.section`
@@ -20,18 +19,25 @@ const StyledProfileSection = styled.section`
   .profile-img-container {
     width: 120px;
     height: 120px;
-    border-radius: 50%;
-    border: 2px solid #000;
-    background: #fff;
+    border-radius: 833.333px;
+    border: 1.667px solid #1c1c1c;
+    background: var(--Gray-White, #fff);
     overflow: hidden;
-
-    /* shadow */
-    box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 4px 4px 0px 0px #000;
     display: flex;
     justify-content: center;
     align-items: center;
     div {
       border-radius: 50%;
+    }
+    svg {
+      width: 48px;
+      height: 40.552px;
+      flex-shrink: 0;
+    }
+    img {
+      width: 100%;
+      height: 100%;
     }
   }
 
@@ -64,28 +70,31 @@ export const Fallback = () => (
 );
 
 const ProfileInfo = () => {
-  const localKakaoLoginId = localStorage.getItem('kakaoLoginId');
-  const [kakaoLoginId] = useState(
-    localKakaoLoginId === null ? 0 : +localKakaoLoginId,
-  );
-  const { data } = useGetProfileInfo({ id: kakaoLoginId });
+  const { data } = useGetProfileInfo();
 
   return (
     <StyledProfileSection>
       <div className="profile-img-container">
-        {
-          <img
-            src={data?.profileImageUrl ?? '/profile-image.png'}
-            alt="profile"
-          />
-        }
+        {<img src={data?.picture ?? '/profile-image.png'} alt="profile" />}
       </div>
       <div className="name-container">
-        <div className="title01">{data?.nickname ?? ''}</div>
+        <div className="title01">{data?.name ?? ''}</div>
         <div className="email body02">{data?.email ?? ''}</div>
       </div>
     </StyledProfileSection>
   );
 };
+
+export const ProfileInfoUnlogin = () => (
+  <StyledProfileSection>
+    <div className="profile-img-container">
+      <LogoIcon />
+    </div>
+    <div className="name-container">
+      <div className="headline02">로그인하시고 맛렙을</div>
+      <div className="headline02">더 알차게 즐겨보세요 : )</div>
+    </div>
+  </StyledProfileSection>
+);
 
 export default ProfileInfo;
