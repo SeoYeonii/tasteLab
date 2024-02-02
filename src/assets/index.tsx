@@ -22,6 +22,7 @@ import IngredientIcon from './ingredient.svg';
 import ListIcon from './list.svg';
 import ListFilledIcon from './listFilled.svg';
 import LocationIcon from './location.svg';
+import LogoTitleIcon from './logoTitle.svg';
 import MapIcon from './map.svg';
 import MapFilledIcon from './mapFilled.svg';
 import MoneyIcon from './money.svg';
@@ -37,6 +38,7 @@ import SearchIcon from './search.svg';
 import ShareIcon from './share.svg';
 import StarIcon from './star.svg';
 import StarFilledIcon from './starFilled.svg';
+import LogoIcon from './tastelab.svg';
 
 export {
   AddIcon,
@@ -78,4 +80,6 @@ export {
   IngredientIcon,
   ListIcon,
   ListFilledIcon,
+  LogoIcon,
+  LogoTitleIcon,
 };
