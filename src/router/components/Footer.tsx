@@ -12,6 +12,7 @@ import {
   PersonIcon,
 } from '@/assets';
 
+import IconItem from './IconItem';
 import PATH from '../PATH';
 
 const StyledFooter = styled.section`
@@ -49,59 +50,6 @@ const StyledFooter = styled.section`
   }
 `;
 
-const StyledItem = styled.div`
-  &.selected {
-    color: var(--gray90);
-    path {
-      fill: var(--gray90) !important;
-    }
-    svg {
-      display: none !important;
-    }
-    .hover-icon {
-      display: block !important;
-    }
-  }
-  &:hover {
-    svg {
-      display: none !important;
-    }
-  }
-  &:hover {
-    .hover-icon {
-      display: block !important;
-    }
-    path {
-      fill: var(--gray90) !important;
-    }
-  }
-`;
-
-interface FooterItemProps {
-  selected: boolean;
-  Icon: ElementType;
-  IconFilled: ElementType;
-  title: string;
-  onClick: () => void;
-}
-
-const FooterItem = ({
-  selected,
-  Icon,
-  IconFilled,
-  title,
-  onClick,
-}: FooterItemProps) => (
-  <StyledItem
-    className={`${selected ? 'selected' : ''} item`}
-    onClick={onClick}
-  >
-    <Icon className="icon" />
-    <IconFilled className="icon hover-icon" style={{ display: 'none' }} />
-    <div className="title04">{title}</div>
-  </StyledItem>
-);
-
 const Footer = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
@@ -113,21 +61,21 @@ const Footer = () => {
   );
   return (
     <StyledFooter>
-      <FooterItem
+      <IconItem
         selected={pathname === PATH.HOME}
         Icon={HomeIcon as ElementType}
         IconFilled={HomeFilledIcon as ElementType}
         title="홈"
         onClick={() => hadleClickGoto(PATH.HOME)}
       />
-      <FooterItem
+      <IconItem
         selected={pathname === PATH.LIST}
         Icon={ListIcon as ElementType}
         IconFilled={ListFilledIcon as ElementType}
         title="자료실"
         onClick={() => hadleClickGoto(PATH.LIST)}
       />
-      <FooterItem
+      <IconItem
         selected={pathname === PATH.PROFILE}
         Icon={PersonIcon as ElementType}
         IconFilled={PersonFilledIcon as ElementType}
