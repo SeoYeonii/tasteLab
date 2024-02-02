@@ -41,7 +41,7 @@ const StyledFooter = styled.section`
       border-radius: 0;
     }
     path {
-      fill: var(--gray40) !important;
+      fill: var(--gray40);
     }
     &:hover {
       cursor: pointer;

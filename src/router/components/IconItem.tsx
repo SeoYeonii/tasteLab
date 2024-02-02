@@ -4,7 +4,7 @@ import { styled } from 'styled-components';
 
 const StyledItem = styled.div`
   &.selected {
-    color: var(--gray90);
+    color: var(--gray90) !important;
     path {
       fill: var(--gray90) !important;
     }
