@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import { IngredientIcon, MoneyIcon } from '@/assets';
 import useStore from '@/stores';
 
+import Comment from './components/Comment';
 import Recipe, { Fallback as RecipeFallback } from './components/Recipe';
 
 const StyledSection = styled.section`
@@ -51,6 +52,13 @@ const StyledSection = styled.section`
     }
     .ingredient,
     .price {
+      svg {
+        cursor: default;
+        border-radius: 0;
+        &:hover {
+          box-shadow: none;
+        }
+      }
       display: inline-flex;
       gap: 8px;
       align-items: center;
@@ -114,7 +122,9 @@ const Content = () => {
           <Recipe />
         </Suspense>
       </StyledBottomSection>
-      {/*  */}
+      <Suspense fallback={<div>Loading...</div>}>
+        <Comment />
+      </Suspense>
     </>
   );
 };

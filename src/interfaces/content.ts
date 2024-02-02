@@ -3,3 +3,7 @@ export interface RecipeInfo {
   orderNumber: number;
   description: string;
 }
+
+export interface Comment {
+  userName: string;
+}

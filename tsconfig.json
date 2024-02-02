@@ -31,6 +31,8 @@
       "@stores/*": ["stores/*"],
       "@interfaces/*": ["interfaces/*"],
       "@router/*": ["router/*"],
+
+      "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"],
     },
   },
   "include": ["src"],
