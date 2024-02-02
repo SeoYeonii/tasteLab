@@ -16,7 +16,7 @@ const PATH: { [key in PathType]: string } = {
   HOME: '/',
   LOGIN: '/login',
   MAIN: '/main',
-  CONTENT: '/content',
+  CONTENT: '/content/:comboItemId',
   LIST: '/list',
   USERCONTENT: '/usercontent',
   REGISTER: '/register',
