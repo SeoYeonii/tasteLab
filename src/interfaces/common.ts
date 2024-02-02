@@ -31,4 +31,5 @@ export interface Product {
   productType: string;
   usedCount: number;
   savedAt: string;
+  price: number;
 }
