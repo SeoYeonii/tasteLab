@@ -59,10 +59,12 @@ const Appbar = () => {
   }, [navigate]);
 
   const Content = useMemo(() => {
-    switch (pathname) {
+    const pathName = `/${pathname.split('/')[1]}`;
+
+    switch (pathName) {
       case PATH.PROFILE:
         return <div className="center title01">마이페이지</div>;
-      case PATH.CONTENT:
+      case '/content':
         return (
           <>
             <div className="left" onClick={handleClickGoBack}>
