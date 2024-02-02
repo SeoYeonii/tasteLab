@@ -70,12 +70,19 @@ const StyledDiv = styled.div`
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const loginToken = useMemo(() => localStorage.getItem('loginToken'), []);
+
   const [searchParams] = useSearchParams();
   const code = useMemo(() => searchParams.get('code'), [searchParams]);
 
   const { mutate: accessTokenMutate } = usePostKakaoAccessToken();
   const { mutate: loginInfoMutate } = useGetKakaoLoginInfo();
   const { mutate } = usePostKakaoLoginInfo();
+
+  useEffect(() => {
+    if (loginToken !== null) navigate(PATH.HOME);
+  }, [loginToken, navigate]);
 
   useEffect(() => {
     if (code !== null) {
