@@ -15,11 +15,14 @@ interface Props {
 }
 
 const getSavedItems = async ({ page }: Props): Promise<Page<ComboItem>> => {
+  const loginToken: string = localStorage.getItem('loginToken') as string;
+  const token = JSON.parse(loginToken);
+
   const response: Page<ComboItem> = await _http.get(
     `/user/bookmark?page=${page}&size=10`,
     {
       headers: {
-        Authorization: `Bearer ${JSON.parse(localStorage.getItem('loginToken') ?? '')}`,
+        Authorization: `Bearer ${token}`,
       },
     },
   );
