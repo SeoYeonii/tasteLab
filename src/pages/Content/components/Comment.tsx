@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Dialog } from '@mui/material';
@@ -6,6 +6,7 @@ import styled from 'styled-components';
 
 import { useGetComments } from '@/apis';
 import { KakaoIcon } from '@/assets';
+import MultieOnFocusedTextField from '@/components/MultieOnFocusedTextField';
 import PATH from '@/router/PATH';
 
 const StyledSection = styled.section`
@@ -37,6 +38,7 @@ const StyledSection = styled.section`
   }
 
   .comment-container {
+    width: 100%;
   }
 
   .comments-container {
@@ -121,8 +123,16 @@ interface Props {}
 
 const Comment = () => {
   const navigate = useNavigate();
+
   const { data } = useGetComments();
+
   const loginToken = localStorage.getItem('loginToken') ?? '';
+
+  const [word, setWord] = useState('');
+  const handleChangeWord = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setWord(e.target.value);
+  }, []);
+
   const [open, setOpen] = useState(false);
   const handleClickLogin = useCallback((val: boolean) => {
     setOpen(val);
@@ -145,7 +155,9 @@ const Comment = () => {
             </div>
           )}
         </div>
-        <div className="comment-container"></div>
+        <div className="comment-container">
+          <MultieOnFocusedTextField word={word} onChange={handleChangeWord} />
+        </div>
         <div className="comments-container"></div>
       </StyledSection>
       <StyledDialog open={open} onClose={() => handleClickLogin(false)}>
