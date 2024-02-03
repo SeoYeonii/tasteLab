@@ -28,6 +28,9 @@ const GuideSection = styled.section`
   }
 `;
 const StyledSection = styled.section`
+  &:last-child {
+    margin-bottom: 16px;
+  }
   .list-title {
     margin: 40px 0 20px 0;
     padding: 8px 20px;

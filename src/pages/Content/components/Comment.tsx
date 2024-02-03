@@ -1,13 +1,15 @@
 // eslint-disable-next-line object-curly-newline
-import { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Dialog, Menu, MenuItem } from '@mui/material';
 import styled from 'styled-components';
 
 // import { useGetComments } from '@/apis';
+import { useGetComments, usePostComment } from '@/apis';
 import { KakaoIcon, MoreIcon } from '@/assets';
 import MultieOnFocusedTextField from '@/components/MultieOnFocusedTextField';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import PATH from '@/router/PATH';
 
 const StyledSection = styled.section`
@@ -176,12 +178,18 @@ export const Fallback = () => (
   </StyledSection>
 );
 
-// interface Props {}
+interface Props {
+  comboItemId: number;
+}
 
-const Comment = () => {
+const Comment = ({ comboItemId }: Props) => {
   const navigate = useNavigate();
 
-  // const { data } = useGetComments();
+  const { data, fetchNextPage, hasNextPage } = useGetComments({ comboItemId });
+  const { setTarget } = useIntersectionObserver({
+    hasNextPage,
+    fetchNextPage,
+  });
 
   const loginToken = localStorage.getItem('loginToken') ?? '';
 
@@ -207,6 +215,24 @@ const Comment = () => {
     navigate(PATH.LOGIN);
   }, [navigate]);
 
+  const { mutate } = usePostComment({ comboItemId });
+  const handleClickPost = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (word.length > 0) {
+        mutate(
+          { comboItemId, content: word },
+          {
+            onSuccess: () => {
+              setWord('');
+            },
+          },
+        );
+      }
+    },
+    [comboItemId, mutate, word],
+  );
+
   return (
     <>
       <StyledSection>
@@ -222,25 +248,38 @@ const Comment = () => {
           )}
         </div>
         <div className="comment-container">
-          <MultieOnFocusedTextField word={word} onChange={handleChangeWord} />
+          <MultieOnFocusedTextField
+            word={word}
+            onChange={handleChangeWord}
+            onClick={handleClickPost}
+          />
         </div>
         <div className="comments-container">
-          <div className="comment-item-container">
-            <div className="top">
-              <div className="left">
-                <div className="name title04">닉네임01</div>
-                <div className="date caption01">2024-01-24 12:57</div>
-              </div>
-              <div onClick={handleClickMenu}>
-                <MoreIcon />
-              </div>
+          {data.result.length === 0 && (
+            <div className="no-comments-container ">
+              <div className="body02">아직 댓글이 없어요!</div>
+              <div className="body02">소중한 관심이 필요해요 :(</div>
             </div>
-            <div className="bottom">{'댓글 내용'.repeat(20)}</div>
-          </div>
-        </div>
-        <div className="no-comments-container ">
-          <div className="body02">아직 댓글이 없어요!</div>
-          <div className="body02">소중한 관심이 필요해요 :(</div>
+          )}
+          {data.result.length > 0 && (
+            <>
+              {data.result.map((item) => (
+                <div className="comment-item-container">
+                  <div className="top">
+                    <div className="left">
+                      <div className="name title04">{item.writerName}</div>
+                      <div className="date caption01">{item.issuedAt}</div>
+                    </div>
+                    <div onClick={handleClickMenu}>
+                      <MoreIcon />
+                    </div>
+                  </div>
+                  <div className="bottom">{item.content}</div>
+                </div>
+              ))}
+              <div ref={setTarget}></div>
+            </>
+          )}
         </div>
       </StyledSection>
       <StyledMenu

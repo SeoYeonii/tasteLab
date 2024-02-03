@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { useGetSavedItems } from '@/apis';
 import Skeleton from '@/components/Skeleton';
+import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 
 const StyledSection = styled.section`
   display: flex;
@@ -66,7 +67,11 @@ export const Fallback = () => (
 );
 
 const SavedItems = () => {
-  const { data } = useGetSavedItems();
+  const { data, fetchNextPage, hasNextPage } = useGetSavedItems();
+  const { setTarget } = useIntersectionObserver({
+    hasNextPage,
+    fetchNextPage,
+  });
 
   return (
     <StyledSection>
@@ -82,13 +87,14 @@ const SavedItems = () => {
           <div className="saved-item-container" key={item.comboItemId}>
             <div className="saved-item">
               <img
-                src={item.products[0]?.imageUrl}
-                alt={item.products[0]?.name}
+                src={item?.products?.[0]?.imageUrl}
+                alt={item?.products?.[0]?.name}
               />
             </div>
             <div className="saved-item-name title02">{item.name}</div>
           </div>
         ))}
+      <div ref={setTarget}></div>
     </StyledSection>
   );
 };
