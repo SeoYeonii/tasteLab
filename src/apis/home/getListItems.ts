@@ -4,18 +4,14 @@ import {
 } from '@tanstack/react-query';
 
 import { ListItem } from '@/interfaces/home';
-import makeFakeListItems from '@/mocks/makeFakeListItems';
 
 import HOME_API_KEY from './consts';
+import { _http } from '../_http';
 
 const getListItems = async (): Promise<ListItem[]> => {
-  /** @TODO 실제 api 연동 필요 */
-  const response = makeFakeListItems();
+  const response: ListItem[] = await _http.get('/product/top3');
 
-  return new Promise((res) => {
-    setTimeout(() => res(response), 2000);
-    // setTimeout(() => rej('testing error boundary'), awaitTime);
-  });
+  return response;
 };
 
 const useGetListItems = (): UseSuspenseQueryResult<ListItem[]> =>
