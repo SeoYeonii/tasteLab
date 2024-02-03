@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 
+import { useGetRecommendItem } from '@/apis';
 import { AddIcon } from '@/assets';
 import Skeleton from '@/components/Skeleton';
-import { RecommendItem } from '@/interfaces/home';
+import { ComboItem } from '@/interfaces/home';
 
 const StyledCard = styled.div`
   display: flex;
@@ -91,47 +92,56 @@ const StyledCard = styled.div`
 `;
 
 interface Props {
-  item?: RecommendItem;
   isLoading?: boolean;
-  onClick?: (id: number) => void;
+  onClick?: (comboItem: ComboItem) => void;
 }
 
 const RecommendCarouselItem = ({
-  item = undefined,
   isLoading = false,
   onClick = undefined,
-}: Props) => (
-  <StyledCard onClick={() => onClick?.(item?.comboItemId ?? 0)}>
-    <div className="title-container">
-      {isLoading && <Skeleton height="1rem" />}
-      {!isLoading && <div className="title02">{item?.ment ?? ''}</div>}
-    </div>
-    <div className="content-container">
-      <div className="content">
-        <div className="img">
-          {isLoading && <Skeleton height="100%" width="100%" />}
-          {item?.foods.map((food, i) => (
-            <img className={`img${i}`} src={food.imageUrl} alt={food.name} />
-          ))}
+}: Props) => {
+  const { data: item } = useGetRecommendItem();
+  return (
+    <StyledCard>
+      <div className="title-container">
+        {isLoading && <Skeleton height="1rem" />}
+        {!isLoading && <div className="title02">{item?.ment ?? ''}</div>}
+      </div>
+      <div className="content-container">
+        <div className="content" onClick={() => onClick?.(item.foodComboItem)}>
+          <div className="img">
+            {isLoading && <Skeleton height="100%" width="100%" />}
+            {item?.foodComboItem.products.map((food, i) => (
+              <img className={`img${i}`} src={food.imageUrl} alt={food.name} />
+            ))}
+          </div>
+          {isLoading && <Skeleton height="18px%" width="3rem" />}
+          {!isLoading && (
+            <div className="name title03">{item?.foodComboItem.name}</div>
+          )}
         </div>
-        {isLoading && <Skeleton height="18px%" width="3rem" />}
-        {!isLoading && <div className="name title03">{item?.foodsName}</div>}
-      </div>
-      <div className="text">
-        <AddIcon />
-      </div>
-      <div className="content">
-        <div className="img">
-          {isLoading && <Skeleton height="100%" width="100%" />}
-          {item?.drinks.map((drink, i) => (
-            <img className={`img${i}`} src={drink.imageUrl} alt={drink.name} />
-          ))}
+        <div className="text">
+          <AddIcon />
         </div>
-        {isLoading && <Skeleton height="18px%" width="3rem" />}
-        {!isLoading && <div className="name title03">{item?.drinksName}</div>}
+        <div className="content" onClick={() => onClick?.(item.drinkComboItem)}>
+          <div className="img">
+            {isLoading && <Skeleton height="100%" width="100%" />}
+            {item?.drinkComboItem.products.map((drink, i) => (
+              <img
+                className={`img${i}`}
+                src={drink.imageUrl}
+                alt={drink.name}
+              />
+            ))}
+          </div>
+          {isLoading && <Skeleton height="18px%" width="3rem" />}
+          {!isLoading && (
+            <div className="name title03">{item?.drinkComboItem.name}</div>
+          )}
+        </div>
       </div>
-    </div>
-  </StyledCard>
-);
+    </StyledCard>
+  );
+};
 
 export default RecommendCarouselItem;

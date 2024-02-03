@@ -5,7 +5,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a lo
 import { UseSuspenseQueryResult } from '@tanstack/react-query';
 import { styled } from 'styled-components';
 
-import { ComboItem, RecommendItem } from '@/interfaces/home';
+import { ComboItem } from '@/interfaces/home';
 
 const StyledDiv = styled.div`
   .carousel-root > .carousel-slider {
@@ -21,7 +21,7 @@ const StyledDiv = styled.div`
   }
 `;
 interface Props {
-  queryFn: () => UseSuspenseQueryResult<ComboItem[] | RecommendItem[]>;
+  queryFn: () => UseSuspenseQueryResult<ComboItem[]>;
   Item: ElementType;
   // eslint-disable-next-line no-unused-vars
   onClick?: (data: ComboItem) => void;

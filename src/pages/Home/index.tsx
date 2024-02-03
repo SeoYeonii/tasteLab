@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 
-import { useGetComboItems, useGetRecommendItems } from '@/apis';
+import { useGetComboItems } from '@/apis';
 import { ComboItem } from '@/interfaces/home';
 import useStore from '@/stores';
 
@@ -109,23 +109,9 @@ const Home = () => {
         </div>
       </StyledSection>
       <StyledSection>
-        <div className="list-title">TBD</div>
-        <Suspense
-          fallback={
-            <TLCarouselFallback
-              Item={RecommendCarouselItem}
-              showIndicators={false}
-              centerSlidePercentage={90}
-            />
-          }
-        >
-          <TLCarousel
-            queryFn={useGetRecommendItems}
-            Item={RecommendCarouselItem}
-            onClick={handleClickComboItem}
-            showIndicators={false}
-            centerSlidePercentage={90}
-          />
+        <div className="list-title">꿀꿀조합🐽이건 어때?</div>
+        <Suspense fallback={<RecommendCarouselItem isLoading />}>
+          <RecommendCarouselItem onClick={handleClickComboItem} />
         </Suspense>
       </StyledSection>
     </>
