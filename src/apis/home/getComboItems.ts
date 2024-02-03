@@ -4,18 +4,14 @@ import {
 } from '@tanstack/react-query';
 
 import { ComboItem } from '@/interfaces/home';
-import makeFakeComboItems from '@/mocks/makeFakeComboItems';
 
 import HOME_API_KEY from './consts';
+import { _http } from '../_http';
 
 const getComboItems = async (): Promise<ComboItem[]> => {
-  /** @TODO 실제 api 연동 필요 */
-  const response = makeFakeComboItems();
+  const response: ComboItem[] = await _http.get('/combo-item/random');
 
-  return new Promise((res) => {
-    setTimeout(() => res(response), 3000);
-    // setTimeout(() => rej('testing error boundary'), awaitTime);
-  });
+  return response;
 };
 
 const useGetComboItems = (): UseSuspenseQueryResult<ComboItem[]> =>

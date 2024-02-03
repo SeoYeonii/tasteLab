@@ -57,7 +57,7 @@ const StyledListContainer = styled.div`
           fill: #5f5f5f;
         }
         .like-num {
-          color: var(--Gray-70, #5f5f5f);
+          color: var(--gray70, #5f5f5f);
         }
       }
     }
@@ -97,20 +97,20 @@ const TopList = () => {
   const { data } = useGetListItems();
   return (
     <StyledListContainer>
-      {data?.map((item) => (
-        <div key={item.id} className="list-item">
+      {data?.map((item, i) => (
+        <div key={item.productId} className="list-item">
           <div className="img-container">
-            <img src={item.imgUrl} alt={item.name} />
+            <img src={item.imageUrl} alt={item.name} />
           </div>
           <div className="desc-container">
             <div className="badge-row">
-              <Badge text={`${item.rank}위`}></Badge>
+              <Badge text={`${i + 1}위`}></Badge>
             </div>
             <div className="name-row title02">{item.name}</div>
-            <div className="tag-row title04">{`#${item.tags.join(' #')}`}</div>
+            <div className="tag-row title04">{`#${item.comboItemName.join(' #')}`}</div>
             <div className="heart-row">
               <HeartIcon />
-              <div className="like-num title04">{item.likeNum}</div>
+              <div className="like-num title04">{item.usedCount}</div>
             </div>
           </div>
         </div>

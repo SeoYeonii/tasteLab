@@ -100,8 +100,8 @@ const CarouselItem = ({
         <div className="img">
           {!isLoading && (
             <img
-              src={item?.products[0].imageUrl}
-              alt={item?.products[0].name}
+              src={item?.products[0]?.imageUrl}
+              alt={item?.products[0]?.name}
             />
           )}
           {isLoading && <Skeleton height="80px" width="80px" />}
@@ -109,8 +109,8 @@ const CarouselItem = ({
         <div className="img">
           {!isLoading && (
             <img
-              src={item?.products[1].imageUrl}
-              alt={item?.products[1].name}
+              src={item?.products[1]?.imageUrl}
+              alt={item?.products[1]?.name}
             />
           )}
           {isLoading && <Skeleton height="80px" width="80px" />}
@@ -118,14 +118,14 @@ const CarouselItem = ({
       </div>
       <div className="text-container">
         {!isLoading && (
-          <div className="text title04">{item?.products[0].name}</div>
+          <div className="text title04">{item?.products[0]?.name}</div>
         )}
         {isLoading && <Skeleton height="1rem" width="5rem" />}
         <div>
           <AddIcon />
         </div>
         {!isLoading && (
-          <div className="text title04">{item?.products[1].name}</div>
+          <div className="text title04">{item?.products[1]?.name}</div>
         )}
         {isLoading && <Skeleton height="1rem" width="5rem" />}
       </div>
