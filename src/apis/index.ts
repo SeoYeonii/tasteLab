@@ -10,6 +10,7 @@ export { default as usePostKakaoLoginInfo } from '@apis/login/postKakaoLoginInfo
 
 /** Profile */
 export { default as useGetProfileInfo } from './profile/getProfileInfo';
+export { default as useGetSavedItems } from './profile/getSavedItems';
 
 /** Content */
 export { default as useGetRecipes } from '@apis/content/getRecipes';

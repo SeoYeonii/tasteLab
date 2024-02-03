@@ -1,7 +1,7 @@
 /* eslint-disable operator-linebreak */
 import styled from 'styled-components';
 
-import { useGetComboItems } from '@/apis';
+import { useGetSavedItems } from '@/apis';
 import Skeleton from '@/components/Skeleton';
 
 const StyledSection = styled.section`
@@ -66,24 +66,24 @@ export const Fallback = () => (
 );
 
 const SavedItems = () => {
-  const { data } = useGetComboItems();
+  const { data } = useGetSavedItems();
 
   return (
     <StyledSection>
-      {(data?.length ?? 0) === 0 && (
+      {(data?.result?.length ?? 0) === 0 && (
         <div className="empty-text-container">
           <div className="empty-text title02">찜 목록이 비어있어요!</div>
           <div className="empty-text title02">맘에 드는 꿀조합에</div>
           <div className="empty-text title02">하트를 눌러보세요:{'>'}</div>
         </div>
       )}
-      {(data?.length ?? 0) > 0 &&
-        data?.map((item) => (
+      {(data?.result?.length ?? 0) > 0 &&
+        data?.result?.map((item) => (
           <div className="saved-item-container" key={item.comboItemId}>
             <div className="saved-item">
               <img
-                src={item.products[0].imageUrl}
-                alt={item.products[0].name}
+                src={item.products[0]?.imageUrl}
+                alt={item.products[0]?.name}
               />
             </div>
             <div className="saved-item-name title02">{item.name}</div>
