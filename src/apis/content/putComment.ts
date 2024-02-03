@@ -13,11 +13,15 @@ const putComment = async ({ replyId, content }: Props): Promise<string> => {
   const loginToken: string = localStorage.getItem('loginToken') as string;
   const token = JSON.parse(loginToken);
 
-  const response: string = await _http.put(`/combo-item/${replyId}`, content, {
-    headers: {
-      Authorization: `Bearer ${token}`,
+  const response: string = await _http.put(
+    `/combo-item/${replyId}`,
+    { content },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
 
   return response;
 };

@@ -8,7 +8,7 @@ export const SORT_LABEL_MAP: { [key in SortType]: string } = {
   D: '음료',
 } as const;
 export const ORDER_LABEL_MAP: { [key in OrderType]: string } = {
-  TOP: '추천순',
+  TOP: '인기순',
   NEW: '최신순',
   REPLY: '댓글순',
 };
