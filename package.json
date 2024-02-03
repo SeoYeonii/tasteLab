@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@faker-js/faker": "^8.4.0",
+    "@mui/material": "^5.15.7",
+    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.14",
     "@tanstack/react-query": "^5.17.19",
     "@tanstack/react-query-devtools": "^5.17.21",
     "@types/node": "^20.11.7",
@@ -44,5 +47,8 @@
     "vite": "^5.0.8",
     "vite-plugin-html-env": "^1.2.8",
     "vite-tsconfig-paths": "^4.3.1"
+  },
+  "resolutions": {
+    "@mui/styled-engine": "npm:@mui/styled-engine-sc@latest"
   }
 }

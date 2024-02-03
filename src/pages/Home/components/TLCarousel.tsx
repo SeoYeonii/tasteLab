@@ -24,7 +24,7 @@ interface Props {
   queryFn: () => UseSuspenseQueryResult<ComboItem[] | RecommendItem[]>;
   Item: ElementType;
   // eslint-disable-next-line no-unused-vars
-  onClick?: (id: number) => void;
+  onClick?: (data: ComboItem) => void;
   showIndicators?: boolean;
   centerSlidePercentage?: number;
 }
@@ -81,7 +81,7 @@ const TLCarousel = ({
             key={item.comboItemId}
             isLoading={isLoading}
             item={item}
-            onClick={() => onClick?.(item.comboItemId)}
+            onClick={() => onClick?.(item as ComboItem)}
           />
         ))}
       </Carousel>

@@ -14,13 +14,15 @@ export const ORDER_LABEL_ARR: { [key in OrderType]: string } = {
 };
 
 export interface Page<T> {
-  totalElements: number;
-  totalPages: number;
-  size: number;
-  number: number; // 현재 페이지
-  numberOfElements: number; // 현재 페이지의 데이터 수
+  pageInfo: {
+    page: number;
+    size: number;
+    totalItemCount: number;
+    offset: number;
+    totalPage: number;
+  };
 
-  content: T[];
+  result: T[];
 }
 
 export interface Product {
@@ -31,4 +33,5 @@ export interface Product {
   productType: string;
   usedCount: number;
   savedAt: string;
+  price: number;
 }

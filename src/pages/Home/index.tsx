@@ -1,10 +1,12 @@
 import { Suspense, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
 
 import { useGetComboItems, useGetRecommendItems } from '@/apis';
-import PATH from '@/router/PATH';
+import { ComboItem } from '@/interfaces/home';
+import useStore from '@/stores';
 
 import CarouselItem from './components/CarouselItem';
 import RecommendCarouselItem from './components/RecommendCarouselItem';
@@ -68,11 +70,15 @@ const StyledSection = styled.section`
 `;
 
 const Home = () => {
+  const { comboItemStore } = useStore();
   const navigate = useNavigate();
 
   const handleClickComboItem = useCallback(
-    (id: number) => navigate(PATH.CONTENT, { state: { id } }),
-    [navigate],
+    (data: ComboItem) => {
+      comboItemStore.setSelectedComboItem(data);
+      navigate(`/content/${data.comboItemId}`);
+    },
+    [comboItemStore, navigate],
   );
 
   const handleClickList = useCallback(() => {
@@ -126,4 +132,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default observer(Home);

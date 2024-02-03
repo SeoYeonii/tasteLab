@@ -19,6 +19,7 @@ import HomeIcon from './home.svg';
 import HomeFilledIcon from './homeOutlined.svg';
 import InfoFilledIcon from './infoFilled.svg';
 import IngredientIcon from './ingredient.svg';
+import KakaoIcon from './kakao.svg';
 import ListIcon from './list.svg';
 import ListFilledIcon from './listFilled.svg';
 import LocationIcon from './location.svg';
@@ -26,6 +27,7 @@ import LogoTitleIcon from './logoTitle.svg';
 import MapIcon from './map.svg';
 import MapFilledIcon from './mapFilled.svg';
 import MoneyIcon from './money.svg';
+import MoreIcon from './more.svg';
 import MyLocationIcon from './myLocation.svg';
 import NotificationIcon from './notification.svg';
 import PersonIcon from './person.svg';
@@ -82,4 +84,6 @@ export {
   ListFilledIcon,
   LogoIcon,
   LogoTitleIcon,
+  KakaoIcon,
+  MoreIcon,
 };
