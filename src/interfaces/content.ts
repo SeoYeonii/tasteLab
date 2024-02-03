@@ -5,5 +5,10 @@ export interface RecipeInfo {
 }
 
 export interface Comment {
-  userName: string;
+  replyId: number;
+  writerName: string;
+  writerEmail: string;
+  isEditable: boolean;
+  content: string;
+  issuedAt: string;
 }

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, MouseEvent, useState } from 'react';
 
 import TextField from '@mui/material/TextField';
 import { styled } from 'styled-components';
@@ -43,9 +43,10 @@ const StyledDiv = styled.div`
 interface Props {
   word: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onClick: (e: MouseEvent) => void;
 }
 
-const MultieOnFocusedTextField = ({ word, onChange }: Props) => {
+const MultieOnFocusedTextField = ({ word, onChange, onClick }: Props) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
@@ -53,7 +54,9 @@ const MultieOnFocusedTextField = ({ word, onChange }: Props) => {
   };
 
   const handleBlur = () => {
-    setIsFocused(false);
+    setTimeout(() => {
+      setIsFocused(false);
+    }, 200);
   };
 
   return (
@@ -72,7 +75,7 @@ const MultieOnFocusedTextField = ({ word, onChange }: Props) => {
       {isFocused && (
         <StyledDiv>
           <div className="text-num body02">{`${word.length}/300`}</div>
-          <button type="button" className="register title04">
+          <button type="button" className="register title04" onClick={onClick}>
             등록
           </button>
         </StyledDiv>

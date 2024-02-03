@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import { observer } from 'mobx-react-lite';
 import styled from 'styled-components';
@@ -78,8 +78,8 @@ const StyledBottomSection = styled.section`
 `;
 
 const Content = () => {
-  //   const { comboItemId: comboItemIdParam } = useParams();
-  //   const comboItemId = Number(comboItemIdParam ?? 0);
+  const { comboItemId: comboItemIdParam } = useParams();
+  const comboItemId = Number(comboItemIdParam ?? 0);
   const { comboItemStore } = useStore();
 
   return (
@@ -118,12 +118,11 @@ const Content = () => {
       <StyledBottomSection>
         <div className="recipe-title title02">레시피</div>
         <Suspense fallback={<RecipeFallback />}>
-          {/* <Recipe comboItemId={comboItemId} /> */}
-          <Recipe />
+          <Recipe comboItemId={comboItemId} />
         </Suspense>
       </StyledBottomSection>
       <Suspense fallback={<div>Loading...</div>}>
-        <Comment />
+        <Comment comboItemId={comboItemId} />
       </Suspense>
     </>
   );

@@ -87,8 +87,8 @@ const SavedItems = () => {
           <div className="saved-item-container" key={item.comboItemId}>
             <div className="saved-item">
               <img
-                src={item.products[0]?.imageUrl}
-                alt={item.products[0]?.name}
+                src={item?.products?.[0]?.imageUrl}
+                alt={item?.products?.[0]?.name}
               />
             </div>
             <div className="saved-item-name title02">{item.name}</div>

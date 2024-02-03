@@ -28,9 +28,6 @@ const getSavedItems = async ({ page }: Props): Promise<Page<ComboItem>> => {
 };
 
 const useGetSavedItems = (): UseSuspenseInfiniteQueryResult<Page<ComboItem>> =>
-  // const useGetComments = ({
-  //   page,
-  // }: Props): UseSuspenseInfiniteQueryResult<Page<Comment>> =>
   useSuspenseInfiniteQuery({
     queryKey: [PROFILE_API_KEY.SAVED_ITEMS],
     queryFn: ({ pageParam = 1 }) => getSavedItems({ page: pageParam }),
@@ -41,10 +38,12 @@ const useGetSavedItems = (): UseSuspenseInfiniteQueryResult<Page<ComboItem>> =>
         ? undefined
         : nextPage;
     },
-    // select: (data) => ({
-    //   pages: data?.pages.flatMap((page) => page.data),
-    //   pageParams: data.pageParams,
-    // }),
+    select: (data) => ({
+      result: data?.pages
+        .flatMap((page) => page.result)
+        .filter((c) => c !== null),
+      pageInfo: data.pages[data.pages.length - 1].pageInfo,
+    }),
   });
 
 export default useGetSavedItems;

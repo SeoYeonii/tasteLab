@@ -50,17 +50,17 @@ export const Fallback = () => (
   </>
 );
 
-// interface Props {
-//   comboItemId: number;
-// }
+interface Props {
+  comboItemId: number;
+}
 
-const Recipe = () => {
-  const { data } = useGetRecipes();
+const Recipe = ({ comboItemId }: Props) => {
+  const { data } = useGetRecipes({ comboItemId });
 
   return (
     <>
       {data?.map((recipe) => (
-        <StyledDiv key={recipe.comboItemId}>
+        <StyledDiv key={recipe.orderNumber}>
           <div className="num">{recipe.orderNumber}</div>
           <div className="text">{recipe.description}</div>
         </StyledDiv>
