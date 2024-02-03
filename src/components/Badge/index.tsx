@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 type BadgeProps = {
-  bgcolor: string;
+  color: string;
 };
 
 const StyledBadge = styled.div<BadgeProps>`
-  ${({ bgcolor }) => `background-color: ${bgcolor};`}
+  ${({ color }) => `background-color: ${color};`}
   border-radius: 100px;
   display: inline-flex;
   padding: 4px 8px;
@@ -13,12 +13,12 @@ const StyledBadge = styled.div<BadgeProps>`
 `;
 
 interface Props {
-  bgcolor?: string;
+  color?: string;
   text: string;
 }
 
-const Badge = ({ bgcolor = 'var(--Yellow-20, #FFE18F)', text }: Props) => (
-  <StyledBadge className="title04" bgcolor={bgcolor}>
+const Badge = ({ color = 'var(--Yellow-20, #FFE18F)', text }: Props) => (
+  <StyledBadge className="title04" color={color}>
     {text}
   </StyledBadge>
 );
