@@ -5,11 +5,16 @@ import { useNavigate } from 'react-router-dom';
 import { Dialog, Menu, MenuItem } from '@mui/material';
 import styled from 'styled-components';
 
-// import { useGetComments } from '@/apis';
-import { useGetComments, usePostComment } from '@/apis';
+import {
+  useDeleteComment,
+  useGetComments,
+  usePostComment,
+  usePutComment,
+} from '@/apis';
 import { KakaoIcon, MoreIcon } from '@/assets';
 import MultieOnFocusedTextField from '@/components/MultieOnFocusedTextField';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import { Comment as IComment } from '@/interfaces/content';
 import PATH from '@/router/PATH';
 
 const StyledSection = styled.section`
@@ -198,12 +203,40 @@ const Comment = ({ comboItemId }: Props) => {
     setWord(e.target.value);
   }, []);
 
+  const [selectedReply, setSelectedReply] = useState<IComment | null>(null);
+  const [shouldModify, setShouldModify] = useState(false);
+  const [modifyContent, setModifyContent] = useState('');
+  const handleChangeModifyWord = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      setModifyContent(e.target.value);
+    },
+    [],
+  );
+  const { mutate: putMutate } = usePutComment({ comboItemId });
+  const handleClickModify = useCallback(() => {
+    putMutate(
+      { replyId: selectedReply?.replyId ?? -1, content: modifyContent },
+      {
+        onSuccess: () => setShouldModify(false),
+      },
+    );
+  }, [modifyContent, putMutate, selectedReply?.replyId]);
+  const { mutate: deleteMutate } = useDeleteComment({ comboItemId });
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const openMenu = Boolean(anchorEl);
-  const handleClickMenu = (event: MouseEvent<HTMLElement>) => {
+
+  const handleClickMenu = (event: MouseEvent<HTMLElement>, reply: IComment) => {
+    setSelectedReply(reply);
     setAnchorEl(event.currentTarget);
   };
-  const handleCloseMenu = () => {
+  const handleCloseMenu = (e: MouseEvent) => {
+    const { tabIndex } = e.target as HTMLElement;
+    if (tabIndex === 0) {
+      setModifyContent(selectedReply?.content ?? '');
+      setShouldModify(true);
+    } else if (tabIndex === 1) {
+      deleteMutate({ replyId: selectedReply?.replyId ?? -1, comboItemId });
+    }
     setAnchorEl(null);
   };
 
@@ -237,7 +270,7 @@ const Comment = ({ comboItemId }: Props) => {
     <>
       <StyledSection>
         <div className="title-container">
-          <div className="headline02">{`댓글(${3})`}</div>
+          <div className="headline02">{`댓글(${data?.result.length})`}</div>
           {loginToken.length === 0 && (
             <div className="right body02">
               <span className="login" onClick={() => handleClickLogin(true)}>
@@ -270,11 +303,23 @@ const Comment = ({ comboItemId }: Props) => {
                       <div className="name title04">{item.writerName}</div>
                       <div className="date caption01">{item.issuedAt}</div>
                     </div>
-                    <div onClick={handleClickMenu}>
-                      <MoreIcon />
-                    </div>
+                    {item.isEditable && (
+                      <div onClick={(e) => handleClickMenu(e, item)}>
+                        <MoreIcon />
+                      </div>
+                    )}
                   </div>
                   <div className="bottom">{item.content}</div>
+                  {selectedReply?.replyId === item.replyId && shouldModify && (
+                    <div className="comment-container">
+                      <MultieOnFocusedTextField
+                        word={modifyContent}
+                        onChange={handleChangeModifyWord}
+                        onClick={handleClickModify}
+                        buttonText="수정"
+                      />
+                    </div>
+                  )}
                 </div>
               ))}
               <div ref={setTarget}></div>
@@ -290,10 +335,12 @@ const Comment = ({ comboItemId }: Props) => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleCloseMenu} divider>
+        <MenuItem onClick={handleCloseMenu} divider tabIndex={0}>
           수정
         </MenuItem>
-        <MenuItem onClick={handleCloseMenu}>삭제</MenuItem>
+        <MenuItem onClick={handleCloseMenu} tabIndex={1}>
+          삭제
+        </MenuItem>
       </StyledMenu>
       <StyledDialog open={open} onClose={() => handleClickLogin(false)}>
         <div className="title-container">

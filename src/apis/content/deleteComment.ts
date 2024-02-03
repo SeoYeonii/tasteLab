@@ -6,21 +6,19 @@ import { _http } from '../_http';
 
 interface Props {
   comboItemId: number;
-  content: string;
+  replyId: number;
 }
 
-const postComment = async ({
+const deleteComment = async ({
+  replyId,
   comboItemId,
-  content,
 }: Props): Promise<string> => {
   const loginToken: string = localStorage.getItem('loginToken') as string;
   const token = JSON.parse(loginToken);
 
-  const response: string = await _http.post(
-    `/combo-item/${comboItemId}/reply`,
-    {
-      content,
-    },
+  const response: string = await _http.delete(
+    `/combo-item/${comboItemId}/${replyId}`,
+    undefined,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -31,10 +29,10 @@ const postComment = async ({
   return response;
 };
 
-const usePostComment = ({ comboItemId }: Pick<Props, 'comboItemId'>) => {
+const useDeleteComment = ({ comboItemId }: Pick<Props, 'comboItemId'>) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: postComment,
+    mutationFn: deleteComment,
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [CONTENT_API_KEY.COMMENTS, comboItemId],
@@ -43,4 +41,4 @@ const usePostComment = ({ comboItemId }: Pick<Props, 'comboItemId'>) => {
   });
 };
 
-export default usePostComment;
+export default useDeleteComment;

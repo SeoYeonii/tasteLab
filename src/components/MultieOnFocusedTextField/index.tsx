@@ -44,9 +44,15 @@ interface Props {
   word: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onClick: (e: MouseEvent) => void;
+  buttonText?: string;
 }
 
-const MultieOnFocusedTextField = ({ word, onChange, onClick }: Props) => {
+const MultieOnFocusedTextField = ({
+  word,
+  onChange,
+  onClick,
+  buttonText = '등록',
+}: Props) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
@@ -76,7 +82,7 @@ const MultieOnFocusedTextField = ({ word, onChange, onClick }: Props) => {
         <StyledDiv>
           <div className="text-num body02">{`${word.length}/300`}</div>
           <button type="button" className="register title04" onClick={onClick}>
-            등록
+            {buttonText}
           </button>
         </StyledDiv>
       )}

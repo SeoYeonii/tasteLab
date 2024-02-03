@@ -18,8 +18,16 @@ const getComments = async ({
   comboItemId,
   page,
 }: Props): Promise<Page<Comment>> => {
-  const response: Page<Comment> = await _http.get(
-    `/combo-item/${comboItemId}/reply?page=${page}&size=10`,
+  const loginToken: string = localStorage.getItem('loginToken') as string;
+  const token = JSON.parse(loginToken);
+
+  const response = await _http.get<Page<Comment>>(
+    `/combo-item/${comboItemId}/reply?page=${page}&size=1`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
   );
 
   return response;

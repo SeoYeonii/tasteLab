@@ -16,5 +16,7 @@ export { default as useGetSavedItems } from './profile/getSavedItems';
 export { default as useGetRecipes } from '@apis/content/getRecipes';
 export { default as useGetComments } from '@apis/content/getComments';
 export { default as usePostComment } from '@apis/content/postComment';
+export { default as usePutComment } from '@apis/content/putComment';
+export { default as useDeleteComment } from '@apis/content/deleteComment';
 
 export { default as useGetFakeTestDatas } from '@apis/test/getFakeTestDatas';
