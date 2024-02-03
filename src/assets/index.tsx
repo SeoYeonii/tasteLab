@@ -27,6 +27,7 @@ import LogoTitleIcon from './logoTitle.svg';
 import MapIcon from './map.svg';
 import MapFilledIcon from './mapFilled.svg';
 import MoneyIcon from './money.svg';
+import MoreIcon from './more.svg';
 import MyLocationIcon from './myLocation.svg';
 import NotificationIcon from './notification.svg';
 import PersonIcon from './person.svg';
@@ -84,4 +85,5 @@ export {
   LogoIcon,
   LogoTitleIcon,
   KakaoIcon,
+  MoreIcon,
 };

@@ -1,11 +1,11 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Dialog } from '@mui/material';
+import { Dialog, Divider, Menu, MenuItem } from '@mui/material';
 import styled from 'styled-components';
 
 import { useGetComments } from '@/apis';
-import { KakaoIcon } from '@/assets';
+import { KakaoIcon, MoreIcon } from '@/assets';
 import MultieOnFocusedTextField from '@/components/MultieOnFocusedTextField';
 import PATH from '@/router/PATH';
 
@@ -42,6 +42,37 @@ const StyledSection = styled.section`
   }
 
   .comments-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+
+    .comment-item-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+
+      .top {
+        display: inline-flex;
+        width: 320px;
+        justify-content: space-between;
+        align-items: flex-start;
+        .left {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          .name {
+          }
+          .date {
+            color: var(--gray50);
+          }
+        }
+      }
+      .bottom {
+        color: var(--gray80);
+      }
+    }
   }
 
   .no-comments-container {
@@ -51,6 +82,31 @@ const StyledSection = styled.section`
     justify-content: center;
     align-items: center;
     gap: 10px;
+    color: var(--Gray-60, #777);
+    text-align: center;
+  }
+`;
+
+const StyledMenu = styled(Menu)`
+  .MuiList-padding {
+    padding: 0;
+  }
+  .MuiMenuItem-root {
+    display: flex;
+    width: 64px;
+    height: 32px;
+    padding: 9px 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: var(--Gray-90, #1c1c1c);
+
+    /* Body/Body03 */
+    font-family: 'Pretendard Variable';
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 16px; /* 133.333% */
   }
 `;
 
@@ -133,6 +189,15 @@ const Comment = () => {
     setWord(e.target.value);
   }, []);
 
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const openMenu = Boolean(anchorEl);
+  const handleClickMenu = (event: MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
   const [open, setOpen] = useState(false);
   const handleClickLogin = useCallback((val: boolean) => {
     setOpen(val);
@@ -158,8 +223,37 @@ const Comment = () => {
         <div className="comment-container">
           <MultieOnFocusedTextField word={word} onChange={handleChangeWord} />
         </div>
-        <div className="comments-container"></div>
+        <div className="comments-container">
+          <div className="comment-item-container">
+            <div className="top">
+              <div className="left">
+                <div className="name title04">닉네임01</div>
+                <div className="date caption01">2024-01-24 12:57</div>
+              </div>
+              <div onClick={handleClickMenu}>
+                <MoreIcon />
+              </div>
+            </div>
+            <div className="bottom">{'댓글 내용'.repeat(20)}</div>
+          </div>
+        </div>
+        <div className="no-comments-container ">
+          <div className="body02">아직 댓글이 없어요!</div>
+          <div className="body02">소중한 관심이 필요해요 :(</div>
+        </div>
       </StyledSection>
+      <StyledMenu
+        anchorEl={anchorEl}
+        open={openMenu}
+        onClose={handleCloseMenu}
+        onClick={handleCloseMenu}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <MenuItem onClick={handleCloseMenu}>수정</MenuItem>
+        <Divider sx={{ margin: 0 }} />
+        <MenuItem onClick={handleCloseMenu}>삭제</MenuItem>
+      </StyledMenu>
       <StyledDialog open={open} onClose={() => handleClickLogin(false)}>
         <div className="title-container">
           <div className="title">로그인하시고 맛렙을</div>
