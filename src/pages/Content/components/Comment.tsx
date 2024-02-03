@@ -250,8 +250,9 @@ const Comment = () => {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleCloseMenu}>수정</MenuItem>
-        <Divider sx={{ margin: 0 }} />
+        <MenuItem onClick={handleCloseMenu} divider>
+          수정
+        </MenuItem>
         <MenuItem onClick={handleCloseMenu}>삭제</MenuItem>
       </StyledMenu>
       <StyledDialog open={open} onClose={() => handleClickLogin(false)}>

@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 
+import List from '@/pages/List';
 import Content from '@pages/Content';
 import Home from '@pages/Home';
 import Login from '@pages/Login';
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
         { path: PATH.CONTENT, element: <Content /> },
         { path: PATH.LOGIN, element: <Login /> },
         { path: PATH.PROFILE, element: <Profile /> },
+        { path: PATH.LIST, element: <List /> },
         {
           path: PATH.TEST,
           element: <Test />,

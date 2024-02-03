@@ -62,6 +62,8 @@ const Appbar = () => {
     const pathName = `/${pathname.split('/')[1]}`;
 
     switch (pathName) {
+      case PATH.LIST:
+        return <div className="center title01">꿀조합 자료실</div>;
       case PATH.PROFILE:
         return <div className="center title01">마이페이지</div>;
       case '/content':
