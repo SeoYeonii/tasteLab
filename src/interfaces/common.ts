@@ -7,7 +7,7 @@ export const SORT_LABEL_MAP: { [key in SortType]: string } = {
   F: '음식',
   D: '음료',
 } as const;
-export const ORDER_LABEL_ARR: { [key in OrderType]: string } = {
+export const ORDER_LABEL_MAP: { [key in OrderType]: string } = {
   TOP: '추천순',
   NEW: '최신순',
   REPLY: '댓글순',
