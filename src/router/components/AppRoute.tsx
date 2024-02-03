@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import styled from 'styled-components';
 
-import Appbar from './\bAppbar';
+import Appbar from './Appbar';
 import Footer from './Footer';
 
 const StyledWrapper = styled.div`
