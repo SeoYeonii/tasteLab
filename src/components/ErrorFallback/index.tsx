@@ -1,4 +1,7 @@
 import { useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import PATH from '@/router/PATH';
 
 import CommonErrorFallback from './CommonErrorFallback';
 
@@ -7,12 +10,18 @@ interface Props {
   error: any;
 }
 const ErrorFallbackComponent = ({ error }: Props) => {
+  const navigate = useNavigate();
+
   const resetApiInputValue = useMemo(() => {
-    if (error?.config?.url.includes('') || true) {
+    if ((error?.response?.status ?? 0) === 401) {
+      localStorage.removeItem('loginToken');
+      return () => navigate(PATH.LOGIN);
+    }
+    if (error?.config?.url.includes('')) {
       return () => undefined;
     }
 
-    return undefined;
+    return () => undefined;
   }, [error]);
 
   return <CommonErrorFallback resetApiInputValue={resetApiInputValue} />;

@@ -61,9 +61,11 @@ const Profile = () => {
           ))}
         </div>
         <div className="saved-container">
-          <Suspense fallback={<SavedItemsFallback />}>
-            <SavedItems />
-          </Suspense>
+          {isLogin && (
+            <Suspense fallback={<SavedItemsFallback />}>
+              <SavedItems />
+            </Suspense>
+          )}
         </div>
       </StyledSection>
     </>

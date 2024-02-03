@@ -112,7 +112,12 @@ const RecommendCarouselItem = ({
           <div className="img">
             {isLoading && <Skeleton height="100%" width="100%" />}
             {item?.foodComboItem.products.map((food, i) => (
-              <img className={`img${i}`} src={food.imageUrl} alt={food.name} />
+              <img
+                key={`img-${i}`}
+                className={`img${i}`}
+                src={food.imageUrl}
+                alt={food.name}
+              />
             ))}
           </div>
           {isLoading && <Skeleton height="18px%" width="3rem" />}
