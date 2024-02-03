@@ -1,18 +1,12 @@
 // eslint-disable-next-line object-curly-newline
-import { MouseEvent, Suspense, useCallback, useState } from 'react';
+import { Suspense, useCallback, useState } from 'react';
 
-import { Menu, MenuItem } from '@mui/material';
 import { styled } from 'styled-components';
 
-import { ArrowDownIcon, HeartIcon } from '@/assets';
-import Badge from '@/components/Badge';
 import Chip from '@/components/Chip';
-import {
-  ORDER_LABEL_MAP,
-  OrderType,
-  SORT_LABEL_MAP,
-  SortType,
-} from '@/interfaces/common';
+import { SORT_LABEL_MAP, SortType } from '@/interfaces/common';
+
+import Items from './Items';
 
 const StyledSection = styled.section`
   padding: 32px 20px;
@@ -76,6 +70,10 @@ const StyledSection = styled.section`
         border-radius: 16px;
         border: 2px solid var(--Gray-90, #1c1c1c);
         background: var(--Gray-White, #fff);
+        img {
+          width: 90%;
+          height: 90%;
+        }
       }
       .text-area {
         display: flex;
@@ -85,6 +83,13 @@ const StyledSection = styled.section`
         gap: 8px;
         flex-shrink: 0;
         align-self: stretch;
+
+        .text {
+          max-width: 104px;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+        }
 
         .like {
           display: inline-flex;
@@ -107,45 +112,11 @@ const StyledSection = styled.section`
   }
 `;
 
-const StyledMenu = styled(Menu)`
-  .MuiList-padding {
-    padding: 0;
-  }
-  .MuiMenuItem-root {
-    display: flex;
-    width: 64px;
-    height: 32px;
-    padding: 9px 16px;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    color: var(--Gray-90, #1c1c1c);
-
-    /* Body/Body03 */
-    font-family: 'Pretendard Variable';
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px; /* 133.333% */
-  }
-`;
-
 const List = () => {
   const [selectedSort, setSelectedSort] = useState<SortType>('A');
   const handleClickSort = useCallback((sort: SortType) => {
     setSelectedSort(sort);
   }, []);
-
-  const [selectedOrder, setSelectedOrder] = useState<OrderType>('TOP');
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const openMenu = Boolean(anchorEl);
-  const handleClickMenu = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleCloseMenu = (val: OrderType) => {
-    setSelectedOrder(val);
-    setAnchorEl(null);
-  };
 
   return (
     <>
@@ -161,54 +132,11 @@ const List = () => {
           ))}
         </div>
         <div className="list-container">
-          <Suspense>
-            <div className="list-header">
-              <div>
-                <span className="title03 black">50</span>
-                <span className="title03 gray">건의 검색 결과</span>
-              </div>
-              <div className="drop-down" onClick={handleClickMenu}>
-                <span className="title03 black">
-                  {ORDER_LABEL_MAP[selectedOrder]}
-                </span>
-                <ArrowDownIcon />
-              </div>
-            </div>
-            <div className="list-container">
-              <div className="card">
-                <div className="img">이미지</div>
-                <div className="text-area">
-                  <Badge text="음식" />
-                  <div className="text-area">
-                    <div className="title02">불닭게티</div>
-                    <div className="title02">3200원</div>
-                  </div>
-                  <div className="like">
-                    <HeartIcon />
-                    <div className="title04">100</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Items sortType={selectedSort} />
           </Suspense>
         </div>
       </StyledSection>
-      <StyledMenu
-        anchorEl={anchorEl}
-        open={openMenu}
-        onClose={() => setAnchorEl(null)}
-        onClick={() => setAnchorEl(null)}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
-        <MenuItem onClick={() => handleCloseMenu('TOP')} divider>
-          인기순
-        </MenuItem>
-        <MenuItem onClick={() => handleCloseMenu('NEW')} divider>
-          최신순
-        </MenuItem>
-        <MenuItem onClick={() => handleCloseMenu('REPLY')}>댓글순</MenuItem>
-      </StyledMenu>
     </>
   );
 };

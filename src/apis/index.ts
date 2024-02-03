@@ -19,4 +19,7 @@ export { default as usePostComment } from '@apis/content/postComment';
 export { default as usePutComment } from '@apis/content/putComment';
 export { default as useDeleteComment } from '@apis/content/deleteComment';
 
+/** List */
+export { default as useGetList } from '@apis/list/getList';
+
 export { default as useGetFakeTestDatas } from '@apis/test/getFakeTestDatas';
