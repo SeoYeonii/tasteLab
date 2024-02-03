@@ -1,10 +1,11 @@
+// eslint-disable-next-line object-curly-newline
 import { ChangeEvent, MouseEvent, useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Dialog, Divider, Menu, MenuItem } from '@mui/material';
+import { Dialog, Menu, MenuItem } from '@mui/material';
 import styled from 'styled-components';
 
-import { useGetComments } from '@/apis';
+// import { useGetComments } from '@/apis';
 import { KakaoIcon, MoreIcon } from '@/assets';
 import MultieOnFocusedTextField from '@/components/MultieOnFocusedTextField';
 import PATH from '@/router/PATH';
@@ -175,12 +176,12 @@ export const Fallback = () => (
   </StyledSection>
 );
 
-interface Props {}
+// interface Props {}
 
 const Comment = () => {
   const navigate = useNavigate();
 
-  const { data } = useGetComments();
+  // const { data } = useGetComments();
 
   const loginToken = localStorage.getItem('loginToken') ?? '';
 

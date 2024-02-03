@@ -1,3 +1,4 @@
+// eslint-disable-next-line object-curly-newline
 import { MouseEvent, Suspense, useCallback, useState } from 'react';
 
 import { Menu, MenuItem } from '@mui/material';
@@ -12,8 +13,6 @@ import {
   SORT_LABEL_MAP,
   SortType,
 } from '@/interfaces/common';
-
-import value from '../../svg.d';
 
 const StyledSection = styled.section`
   padding: 32px 20px;
