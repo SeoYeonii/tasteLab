@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import { styled } from 'styled-components';
 
 import { useGetProfileInfo } from '@/apis';
@@ -17,8 +19,8 @@ const StyledProfileSection = styled.section`
   gap: 20px;
 
   .profile-img-container {
-    width: 120px;
-    height: 120px;
+    width: 110px;
+    height: 110px;
     border-radius: 833.333px;
     border: 1.667px solid #1c1c1c;
     background: var(--Gray-White, #fff);
@@ -76,6 +78,11 @@ export const Fallback = () => (
 
 const ProfileInfo = () => {
   const { data } = useGetProfileInfo();
+  const handleClickLogout = () => {
+    localStorage.removeItem('loginToken');
+    window.dispatchEvent(new Event('storage'));
+    window.location.reload();
+  };
 
   return (
     <StyledProfileSection>
@@ -85,21 +92,39 @@ const ProfileInfo = () => {
       <div className="name-container">
         <div className="title01">{data?.name ?? ''}</div>
         <div className="email body02">{data?.email ?? ''}</div>
+        <div
+          className="caption01"
+          onClick={handleClickLogout}
+          style={{ cursor: 'pointer', textDecoration: 'underline' }}
+        >
+          로그아웃
+        </div>
       </div>
     </StyledProfileSection>
   );
 };
 
-export const ProfileInfoUnlogin = () => (
-  <StyledProfileSection>
-    <div className="profile-img-container">
-      <LogoIcon />
-    </div>
-    <div className="name-container">
-      <div className="headline02">로그인하시고 맛렙을</div>
-      <div className="headline02">더 알차게 즐겨보세요 : )</div>
-    </div>
-  </StyledProfileSection>
-);
+export const ProfileInfoUnlogin = () => {
+  const navigate = useNavigate();
+  return (
+    <StyledProfileSection>
+      <div className="profile-img-container">
+        <LogoIcon />
+      </div>
+      <div className="name-container">
+        <div className="headline02">
+          <span
+            onClick={() => navigate('/login')}
+            style={{ cursor: 'pointer', textDecoration: 'underline' }}
+          >
+            로그인
+          </span>
+          하시고 맛렙을
+        </div>
+        <div className="headline02">더 알차게 즐겨보세요 : )</div>
+      </div>
+    </StyledProfileSection>
+  );
+};
 
 export default ProfileInfo;

@@ -1,4 +1,5 @@
-import { Suspense, useCallback, useState } from 'react';
+// eslint-disable-next-line object-curly-newline
+import { Suspense, useCallback, useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -35,11 +36,28 @@ const StyledSection = styled.section`
 `;
 
 const Profile = () => {
-  const isLogin = localStorage.getItem('loginToken') !== null;
+  const [isLogin, setIsLogin] = useState(
+    localStorage.getItem('loginToken') !== null,
+  );
 
   const [selectedSort, setSelectedSort] = useState<SortType>('A');
   const handleClickSort = useCallback((sort: SortType) => {
     setSelectedSort(sort);
+  }, []);
+
+  useEffect(() => {
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === 'loginToken') {
+        const newLoginToken = event.newValue;
+        setIsLogin(newLoginToken !== null);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   return (

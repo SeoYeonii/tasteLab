@@ -17,19 +17,14 @@ const StyledWrapper = styled.div`
   }
 `;
 
-const AppRoute = () => {
-  window.addEventListener('storage', (ev) => {
-    console.log('event', ev.key);
-  });
-  return (
-    <StyledWrapper>
-      <Appbar />
-      <div className="content-wrapper">
-        <Outlet />
-      </div>
-      <Footer />
-    </StyledWrapper>
-  );
-};
+const AppRoute = () => (
+  <StyledWrapper>
+    <Appbar />
+    <div className="content-wrapper">
+      <Outlet />
+    </div>
+    <Footer />
+  </StyledWrapper>
+);
 
 export default AppRoute;
