@@ -77,7 +77,7 @@ const Items = ({ sortType }: Props) => {
               <img src={item.products?.[1].imageUrl} alt={item.name} />
             </div>
             <div className="text-area">
-              <Badge text="음식" />
+              <Badge text={item.category === 'DRINK' ? '음료' : '음식'} />
               <div className="text-area">
                 <div className="text title02">{item.name}</div>
                 <div className="title02">{`${item.products.reduce((acc, cur) => acc + cur.price, 0)}원`}</div>

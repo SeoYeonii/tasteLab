@@ -1,13 +1,17 @@
-import { useCallback, useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+// eslint-disable-next-line object-curly-newline
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import styled from 'styled-components';
 
+import { useDeleteLike, useGetIsLiked, usePostLike } from '@/apis';
 import {
   ArrowLeftIcon,
-  BookmarkIcon,
+  HeartFilledIcon,
+  // BookmarkIcon,
+  HeartIcon,
   LogoTitleIcon,
-  ShareIcon,
+  // ShareIcon,
 } from '@/assets';
 
 import PATH from '../PATH';
@@ -58,6 +62,40 @@ const Appbar = () => {
     navigate(-1);
   }, [navigate]);
 
+  const { comboItemId } = useParams();
+  const [enabled, setEnabled] = useState(comboItemId !== undefined);
+  const { data, isLoading } = useGetIsLiked({
+    enabled,
+    comboItemId: Number(comboItemId),
+  });
+  const { mutate } = usePostLike();
+  const { mutate: deleteLike } = useDeleteLike();
+
+  const handleClickLike = useCallback(() => {
+    const loginToken = localStorage.getItem('loginToken');
+    if (comboItemId && loginToken !== null) {
+      mutate(
+        { comboItemId: Number(comboItemId) },
+        { onSuccess: () => setEnabled(false) },
+      );
+    }
+  }, [comboItemId, mutate]);
+
+  const handleClickDislike = useCallback(() => {
+    const loginToken = localStorage.getItem('loginToken');
+    if (comboItemId && loginToken !== null) {
+      deleteLike({ comboItemId: Number(comboItemId) });
+    }
+  }, [comboItemId, deleteLike]);
+
+  useEffect(() => {
+    if (comboItemId) {
+      setEnabled(true);
+    } else {
+      setEnabled(false);
+    }
+  }, [comboItemId]);
+
   const Content = useMemo(() => {
     const pathName = `/${pathname.split('/')[1]}`;
 
@@ -73,10 +111,16 @@ const Appbar = () => {
               <ArrowLeftIcon />
             </div>
             <div className="right">
-              <div className="button-container">
-                <ShareIcon />
-                <BookmarkIcon />
-              </div>
+              {!data && !isLoading && (
+                <div className="button-container" onClick={handleClickLike}>
+                  <HeartIcon />
+                </div>
+              )}
+              {data && !isLoading && (
+                <div className="button-container" onClick={handleClickDislike}>
+                  <HeartFilledIcon />
+                </div>
+              )}
             </div>
           </>
         );
@@ -88,7 +132,14 @@ const Appbar = () => {
           </div>
         );
     }
-  }, [handleClickGoBack, pathname]);
+  }, [
+    data,
+    handleClickDislike,
+    handleClickGoBack,
+    handleClickLike,
+    isLoading,
+    pathname,
+  ]);
 
   return (
     <StyledAppbar style={{ display: pathname === PATH.LOGIN ? 'none' : '' }}>

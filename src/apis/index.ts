@@ -18,6 +18,9 @@ export { default as useGetComments } from '@apis/content/getComments';
 export { default as usePostComment } from '@apis/content/postComment';
 export { default as usePutComment } from '@apis/content/putComment';
 export { default as useDeleteComment } from '@apis/content/deleteComment';
+export { default as usePostLike } from '@apis/content/postLike';
+export { default as useDeleteLike } from '@apis/content/deleteLike';
+export { default as useGetIsLiked } from '@apis/content/getIsLiked';
 
 /** List */
 export { default as useGetList } from '@apis/list/getList';

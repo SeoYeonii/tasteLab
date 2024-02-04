@@ -131,6 +131,7 @@ const Login = () => {
                     {
                       onSuccess: (res) => {
                         localStorage.setItem('loginToken', JSON.stringify(res));
+                        window.dispatchEvent(new Event('storage'));
                         navigate(PATH.HOME);
                       },
                     },
