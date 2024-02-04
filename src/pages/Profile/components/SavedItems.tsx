@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useGetSavedItems } from '@/apis';
 import Skeleton from '@/components/Skeleton';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
+import { SortType } from '@/interfaces/common';
 
 const StyledSection = styled.section`
   display: flex;
@@ -66,8 +67,8 @@ export const Fallback = () => (
   </StyledSection>
 );
 
-const SavedItems = () => {
-  const { data, fetchNextPage, hasNextPage } = useGetSavedItems();
+const SavedItems = ({ category }: { category: SortType }) => {
+  const { data, fetchNextPage, hasNextPage } = useGetSavedItems({ category });
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
     fetchNextPage,

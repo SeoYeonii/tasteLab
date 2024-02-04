@@ -3,23 +3,26 @@ import {
   UseSuspenseInfiniteQueryResult,
 } from '@tanstack/react-query';
 
-import { Page } from '@/interfaces/common';
+import { Page, SortType } from '@/interfaces/common';
 import { ComboItem } from '@/interfaces/home';
 
 import PROFILE_API_KEY from './consts';
 import { _http } from '../_http';
 
 interface Props {
-  // comboItemId: number;
+  category: SortType;
   page: number;
 }
 
-const getSavedItems = async ({ page }: Props): Promise<Page<ComboItem>> => {
+const getSavedItems = async ({
+  category,
+  page,
+}: Props): Promise<Page<ComboItem>> => {
   const loginToken: string = localStorage.getItem('loginToken') as string;
   const token = JSON.parse(loginToken);
 
   const response: Page<ComboItem> = await _http.get(
-    `/user/bookmark?page=${page}&size=10`,
+    `/user/bookmark?category=${category}&page=${page}&size=10`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -30,10 +33,13 @@ const getSavedItems = async ({ page }: Props): Promise<Page<ComboItem>> => {
   return response;
 };
 
-const useGetSavedItems = (): UseSuspenseInfiniteQueryResult<Page<ComboItem>> =>
+const useGetSavedItems = ({
+  category,
+}: Pick<Props, 'category'>): UseSuspenseInfiniteQueryResult<Page<ComboItem>> =>
   useSuspenseInfiniteQuery({
-    queryKey: [PROFILE_API_KEY.SAVED_ITEMS],
-    queryFn: ({ pageParam = 1 }) => getSavedItems({ page: pageParam }),
+    queryKey: [PROFILE_API_KEY.SAVED_ITEMS, category],
+    queryFn: ({ pageParam = 1 }) =>
+      getSavedItems({ page: pageParam, category }),
     initialPageParam: 1,
     getNextPageParam: (lastPage) => {
       const nextPage = (lastPage?.pageInfo.page ?? 0) + 1;

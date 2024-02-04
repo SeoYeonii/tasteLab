@@ -81,7 +81,7 @@ const Profile = () => {
         <div className="saved-container">
           {isLogin && (
             <Suspense fallback={<SavedItemsFallback />}>
-              <SavedItems />
+              <SavedItems category={selectedSort} />
             </Suspense>
           )}
         </div>
