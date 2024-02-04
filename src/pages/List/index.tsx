@@ -55,6 +55,7 @@ const StyledSection = styled.section`
     gap: 16px;
     align-self: stretch;
     .card {
+      cursor: pointer;
       display: flex;
       width: 100%;
       align-items: flex-start;

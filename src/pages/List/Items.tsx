@@ -1,6 +1,8 @@
-import { MouseEvent, useState } from 'react';
+import { MouseEvent, useCallback, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Menu, MenuItem } from '@mui/material';
+import { observer } from 'mobx-react-lite';
 import { styled } from 'styled-components';
 
 import { useGetList } from '@/apis';
@@ -8,6 +10,8 @@ import { ArrowDownIcon, HeartIcon } from '@/assets';
 import Badge from '@/components/Badge';
 import useIntersectionObserver from '@/hooks/useIntersectionObserver';
 import { ORDER_LABEL_MAP, OrderType, SortType } from '@/interfaces/common';
+import { ComboItem } from '@/interfaces/home';
+import useStore from '@/stores';
 
 const StyledMenu = styled(Menu)`
   .MuiList-padding {
@@ -55,6 +59,17 @@ const Items = ({ sortType }: Props) => {
     hasNextPage,
     fetchNextPage,
   });
+
+  const { comboItemStore } = useStore();
+  const navigate = useNavigate();
+  const handleClickComboItem = useCallback(
+    (d: ComboItem) => {
+      comboItemStore.setSelectedComboItem(d);
+      navigate(`/content/${d.comboItemId}`);
+    },
+    [comboItemStore, navigate],
+  );
+
   return (
     <>
       <div className="list-header">
@@ -71,7 +86,11 @@ const Items = ({ sortType }: Props) => {
       </div>
       <div className="list-container">
         {data?.result.map((item) => (
-          <div className="card" key={item.comboItemId}>
+          <div
+            className="card"
+            key={item.comboItemId}
+            onClick={() => handleClickComboItem(item)}
+          >
             <div className="img">
               <img src={item.products?.[0].imageUrl} alt={item.name} />
               <img src={item.products?.[1].imageUrl} alt={item.name} />
@@ -111,4 +130,4 @@ const Items = ({ sortType }: Props) => {
   );
 };
 
-export default Items;
+export default observer(Items);
